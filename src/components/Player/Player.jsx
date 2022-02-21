@@ -6,7 +6,12 @@ const Player = () => {
     const dispatch = useDispatch();
     const playersData = useSelector(state => state.playersData);
 
-    return <StyledPlayer playersData={playersData} key={0} id={0} />;
+    const players = playersData.map((player, index) => {
+        console.log(player.values, index);
+        return <StyledPlayer values={player.values} key={index} id={index} />;
+    });
+
+    return players;
 };
 
 export default Player;
