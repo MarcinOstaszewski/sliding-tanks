@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { playersData } from "./playersData";
 
 const initialState = {
@@ -6,16 +6,23 @@ const initialState = {
     keysPressed: {},
 };
 
-const playerReducer = (state = initialState, action) => {
-    switch (action.type) {
-        // case "increment":
-        //     return { player: state.player++ };
-        // case "decrement":
-        //     return { player: state.player-- };
-        default: return state;
-    }
-};
+const keysPressedSlice = createSlice({
+    name: "keysPressed",
+    initialState,
+    reducers: {
+        addKey(state, action) {
+            state.keysPressed[action.payload] = true;
+        },
+        delKey(state, action) {
+            state.keysPressed[action.payload] = false;
+        },
+    },
+});
 
-const store = createStore(playerReducer);
+const store = configureStore({
+    reducer: keysPressedSlice.reducer,
+});
+
+export const keysActions = keysPressedSlice.actions;
 
 export default store;
