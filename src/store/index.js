@@ -11,10 +11,10 @@ const keysPressedSlice = createSlice({
     initialState,
     reducers: {
         addKey(state, action) {
-            state.keysPressed[action.payload] = true;
+            state.keysPressed[action.payload] = 1;
         },
         delKey(state, action) {
-            state.keysPressed[action.payload] = false;
+            delete state.keysPressed[action.payload];
         },
     },
 });
