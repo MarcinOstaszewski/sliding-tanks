@@ -1,27 +1,55 @@
 import "./App.css";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { keysActions } from "./store/index";
+// import { playersActions } from "./store/index";
+import { useSelector, 
+    // useDispatch 
+} from "react-redux";
 import Players from "./components/Players/Players";
+import useInterval from './hooks/useInterval';
+import { useState } from 'react';
+
+const keysPressed = {};
 
 function App() {
-    const dispatch = useDispatch();
-    const keysPressed = useSelector(state => state.keysPressed);
+    const [keysListenersReady, setKeysListenersReady] = useState(false);
+    // const dispatch = useDispatch();
+    const playersValues = useSelector(state => state.playersValues);
+    // const newPlayersValues = [...playersValues];
 
-    useEffect(() => {
-        const onKeyDown = e => {
-            dispatch(keysActions.addKey(e.code));
-        };
-
-        const onKeyUp = e => {
-            dispatch(keysActions.delKey(e.code));
-        };
+    const onKeyDown = e => {
+        keysPressed[e.code] = 1;
+    }
+    const onKeyUp = e =>  {
+        delete keysPressed[e.code];
+    }
+    if (!keysListenersReady) {
         document.addEventListener("keydown", onKeyDown);
         document.addEventListener("keyup", onKeyUp);
-    }, [dispatch]);
+        setKeysListenersReady(true);
+    };
+    
+
+    playersValues.forEach((player, index) => {
+        const newValues = {...player.values};
+
+        if (keysPressed[player.keys.left]) {
+            console.log('left')
+            newValues.rotationSpeed = player.values.rotationSpeed - .1;
+        }
+        if (keysPressed[player.keys.rght]) {
+            console.log('right')
+            newValues.rotationSpeed = player.values.rotationSpeed + .1;
+        }
+        // newPlayersValues[index].values = newValues;
+        
+        return;
+    });
+
+    useInterval(() => {
+        // dispatch(playersActions.updatePlayersValues(newPlayersValues));
+    }, 1000);
 
     return (
-        <div className="App">
+        <div className="App" >
             <Players />
         </div>
     );
