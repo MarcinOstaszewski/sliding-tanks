@@ -1,28 +1,22 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { playersData } from "./playersData";
 
-const initialState = {
-    playersData,
-    keysPressed: {},
-};
-
-const keysPressedSlice = createSlice({
-    name: "keysPressed",
-    initialState,
+const playersValuesSlice = createSlice({
+    name: "playersValues",
+    initialState: playersData,
     reducers: {
-        addKey(state, action) {
-            state.keysPressed[action.payload] = 1;
-        },
-        delKey(state, action) {
-            delete state.keysPressed[action.payload];
+        updatePlayersValues(state, action) {
+            return state = action.payload
         },
     },
 });
 
 const store = configureStore({
-    reducer: keysPressedSlice.reducer,
+    reducer: {
+        playersValues: playersValuesSlice.reducer
+    },
 });
 
-export const keysActions = keysPressedSlice.actions;
+export const playersActions = playersValuesSlice.actions;
 
 export default store;
