@@ -1,36 +1,34 @@
-import React, { useEffect} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { playersActions } from "../../store/index";
+import React from "react";
 import { StyledPlayer } from "./Player.styles";
-import { keysPressed } from '../../App';
 import useInterval from '../../hooks/useInterval';
-import { consts, validateRotationSpeed } from '../../helpers/index';
+import { consts, validateRotationSpeed, updateSpeed, updatePosition } from '../../helpers/index';
+import { playersData } from "../../store/playersData";
 
 const Players = () => {
-    const dispatch = useDispatch();
-    const playersValues = useSelector(state => state.playersValues);
-    
-    const updatePlayersValues = () => {
+    let playersValues = [...playersData];
+    const updatePlayersValues = (playersValues) => {
         let updatedValues = [];
-        playersValues.forEach(({id, values, keys}, index) => {
+        playersValues.forEach(({ id, values, keys }, index) => {
             if (index === 0) {
-
-                const newValues = {...values};
+                const newValues = { ...values };
                 newValues.rotationSpeed = validateRotationSpeed(values, keys);
                 newValues.angle += newValues.rotationSpeed;
-                console.log(newValues.rotationSpeed)
-                updatedValues[index] = {id, values: newValues, keys};
-            }
-        });
+                newValues.speed = updateSpeed(newValues, keys);
+                newValues.position = updatePosition(newValues);
 
-        dispatch(playersActions.updatePlayersValues(updatedValues));
+                updatedValues[index] = { id, values: { ...newValues }, keys };
+            }
+            // ??? ew. playersData przesyłać z App jako props i tu uruchamiać update function z App.js
+        });
+        return updatedValues;
     }
 
     useInterval(() => {
-        updatePlayersValues();
+        console.log(playersValues[0].values.angle);
+        playersValues = updatePlayersValues(playersValues);
     }, consts.FRAME_INTERVAL);
 
-    return playersValues.map((player, index) => {
+    return playersData.map((player, index) => {
         return <StyledPlayer values={player.values} key={index} id={index} />;
     });
 };
