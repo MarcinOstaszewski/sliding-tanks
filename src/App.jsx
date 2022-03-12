@@ -10,7 +10,7 @@ function App() {
     const onKeyDown = e => {
         keysPressed[e.code] = 1;
     }
-    const onKeyUp = e =>  {
+    const onKeyUp = e => {
         delete keysPressed[e.code];
     }
     if (!keysListenersReady) {
