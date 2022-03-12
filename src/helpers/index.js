@@ -1,7 +1,13 @@
 import consts from './consts';
-import { validateRotationSpeed } from './helperFunctions';
+import {
+    validateRotationSpeed,
+    updateSpeed,
+    updatePosition
+} from './helperFunctions';
 
 export {
     consts,
-    validateRotationSpeed
+    validateRotationSpeed,
+    updateSpeed,
+    updatePosition
 }
