@@ -2,7 +2,7 @@ import "./App.css";
 import Players from "./components/Players/Players";
 import { playersData } from "./store/playersData";
 import useInterval from './hooks/useInterval';
-import { validateRotationSpeed, updateSpeed, updatePosition } from './helpers/index';
+import { validateRotationSpeed, updateSpeed, updatePosition, setKeyListeners } from './helpers/index';
 import { useState } from 'react';
 import { consts } from './helpers'
 
@@ -12,30 +12,21 @@ function App() {
     const [playersValues, setPlayersValues] = useState([...playersData]);
     const [keysListenersReady, setKeysListenersReady] = useState(false);
 
-    const onKeyDown = e => {
-        keysPressed[e.code] = 1;
-    }
-    const onKeyUp = e => {
-        delete keysPressed[e.code];
-    }
     if (!keysListenersReady) {
-        document.addEventListener("keydown", onKeyDown);
-        document.addEventListener("keyup", onKeyUp);
+        setKeyListeners();
         setKeysListenersReady(true);
     };
 
     const updatePlayersValues = (playersValues) => {
         let updatedValues = [];
         playersValues.forEach(({ id, values, keys }, index) => {
-            if (index === 0) {
-                const newValues = { ...values };
-                newValues.rotationSpeed = validateRotationSpeed(newValues, keys);
-                newValues.angle += newValues.rotationSpeed;
-                newValues.speed = updateSpeed(newValues, keys);
-                newValues.position = updatePosition(newValues);
+            const newValues = { ...values };
+            newValues.rotationSpeed = validateRotationSpeed(newValues, keys);
+            newValues.angle += newValues.rotationSpeed;
+            newValues.speed = updateSpeed(newValues, keys);
+            newValues.position = updatePosition(newValues);
 
-                updatedValues[index] = { id, values: { ...newValues }, keys };
-            }
+            updatedValues[index] = { id, values: { ...newValues }, keys };
         });
         return updatedValues;
     }
