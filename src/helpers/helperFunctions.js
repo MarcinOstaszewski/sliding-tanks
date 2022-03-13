@@ -25,21 +25,20 @@ const yFraction = (angle) => SPEED_DELTA * Math.cos(angle * DEG_TO_RAD);
 const countNewSpeed = ({ angle, speed }, frwd) => {
     let { x, y } = speed;
     return {
-        x: x + (xFraction(angle) * x * frwd),
-        y: y + (yFraction(angle) * y * frwd)
+        x: x - (xFraction(angle) * frwd),
+        y: y + (yFraction(angle) * frwd)
     };
 }
 
 export const updateSpeed = (values, keys) => {
     let newSpeed = { ...values.speed };
     if (keysPressed[keys.frwd] && !keysPressed[keys.back]) {
-        newSpeed = countNewSpeed(values, 1);
-    }
-    if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
         newSpeed = countNewSpeed(values, -1);
     }
-
-    newSpeed = verifyWallsBounce(values);
+    if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
+        newSpeed = countNewSpeed(values, 1);
+    }
+    newSpeed = verifyWallsBounce(newSpeed, values);
     newSpeed = {
         x: validateSpeed(newSpeed.x),
         y: validateSpeed(newSpeed.y)
@@ -47,31 +46,34 @@ export const updateSpeed = (values, keys) => {
     return newSpeed;
 }
 
-const validateSpeed = (speed) => {
+const validateSpeed = speed => {
     if (Math.abs(speed) < SPEED_MIN) { return 0; }
     if (speed > SPEED_MAX) { return SPEED_MAX; }
     if (speed < -SPEED_MAX) { return -SPEED_MAX; }
     return speed * SPEED_FRICTION;
 }
 
-const verifyWallsBounce = vals => {
-    if (vals.position.x + vals.speed.x < PLAYER_RADIUS
-        || vals.position.x + vals.speed.x > WINDOW_WIDTH - PLAYER_RADIUS) {
-        vals.speed.x *= BOUNCE_FACTOR;
+const verifyWallsBounce = (newSpeed, vals) => {
+    if (vals.position.x + newSpeed.x < PLAYER_RADIUS
+        || vals.position.x + newSpeed.x > WINDOW_WIDTH - PLAYER_RADIUS) {
+        newSpeed.x *= BOUNCE_FACTOR;
     }
-    if (vals.position.y + vals.speed.y < PLAYER_RADIUS
-        || vals.position.y + vals.speed.y > WINDOW_HEIGHT - PLAYER_RADIUS) {
-        vals.speed.y *= BOUNCE_FACTOR;
+    if (vals.position.y + newSpeed.y < PLAYER_RADIUS
+        || vals.position.y + newSpeed.y > WINDOW_HEIGHT - PLAYER_RADIUS) {
+        newSpeed.y *= BOUNCE_FACTOR;
     }
     return {
-        x: vals.speed.x,
-        y: vals.speed.y
+        x: newSpeed.x,
+        y: newSpeed.y
     };
 }
 
 export const updatePosition = ({ position, speed }) => {
-    return {
+
+    let pos = {
         x: position.x + speed.x,
         y: position.y + speed.y
     };
+    // console.log(pos)
+    return pos
 }

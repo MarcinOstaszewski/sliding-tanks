@@ -1,0 +1,38 @@
+.player {
+    width: 25px;
+    height: 25px;
+    border-radius: 9px 9px 5px 5px;
+    position: absolute;
+    &::before,
+    &:after {
+        content: "";
+        position: absolute;
+        background-color: #fff;
+    }
+    &:before {
+        top: 10px;
+        left: 6px;
+        width: 14px;
+        height: 10px;
+        border-radius: 3px;
+    }
+    &:after {
+        top: 1px;
+        left: 11px;
+        width: 4px;
+        height: 10px;
+    }
+}
+
+#player1 {
+    background-color: blue;
+}
+#player2 {
+    background-color: red;
+}
+#player3 {
+    background-color: green;
+}
+#player4 {
+    background-color: orange;
+}
