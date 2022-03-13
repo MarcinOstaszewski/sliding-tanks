@@ -69,11 +69,21 @@ const verifyWallsBounce = (newSpeed, vals) => {
 }
 
 export const updatePosition = ({ position, speed }) => {
-
     let pos = {
         x: position.x + speed.x,
         y: position.y + speed.y
     };
-    // console.log(pos)
+
     return pos
+}
+
+export const setKeyListeners = () => {
+    const onKeyDown = e => {
+        keysPressed[e.code] = 1;
+    }
+    const onKeyUp = e => {
+        delete keysPressed[e.code];
+    }
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keyup", onKeyUp);
 }
