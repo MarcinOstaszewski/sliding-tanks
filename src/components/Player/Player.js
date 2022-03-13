@@ -1,10 +1,10 @@
-// import styles from './Player.css';
-import './Player.scss'
+import './Player.scss';
+import { consts } from '../../helpers';
 
 const Player = (props) => {
-    console.log(props)
     let styles = {
-        transform: `rotate(${props.values.angle}deg)`,
+        transform: `translate(-${consts.PLAYER_RADIUS}px, -${consts.PLAYER_RADIUS}px)
+                    rotate(${props.values.angle}deg)`,
         left: `${props.values.position.x}px`,
         top: `${props.values.position.y}px`,
 
