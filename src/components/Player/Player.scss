@@ -7,20 +7,20 @@
     &:after {
         content: "";
         position: absolute;
-        background-color: #fff;
+        background-color: rgba(256, 256, 256, .7);
     }
     &:before {
         top: 10px;
-        left: 6px;
-        width: 14px;
+        left: 7px;
+        width: 12px;
         height: 10px;
         border-radius: 3px;
     }
     &:after {
-        top: 1px;
+        top: 2px;
         left: 11px;
         width: 4px;
-        height: 10px;
+        height: 8px;
     }
 }
 
