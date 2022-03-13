@@ -2,12 +2,14 @@ import consts from './consts';
 import {
     validateRotationSpeed,
     updateSpeed,
-    updatePosition
+    updatePosition,
+    setKeyListeners
 } from './helperFunctions';
 
 export {
     consts,
     validateRotationSpeed,
     updateSpeed,
-    updatePosition
+    updatePosition,
+    setKeyListeners
 }
