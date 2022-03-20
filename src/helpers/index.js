@@ -3,13 +3,15 @@ import {
     validateRotationSpeed,
     updateSpeed,
     updatePosition,
-    setKeyListeners
+    setKeyListeners,
 } from './helperFunctions';
+import { updatePlayersValues } from './playerHelpers';
 
 export {
     consts,
     validateRotationSpeed,
     updateSpeed,
     updatePosition,
-    setKeyListeners
+    setKeyListeners,
+    updatePlayersValues
 }
