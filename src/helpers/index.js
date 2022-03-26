@@ -4,6 +4,7 @@ import {
     updateSpeed,
     updatePosition,
     setKeyListeners,
+    unsetKeyListeners,
 } from './helperFunctions';
 import { updatePlayersValues } from './playerHelpers';
 
@@ -13,5 +14,6 @@ export {
     updateSpeed,
     updatePosition,
     setKeyListeners,
+    unsetKeyListeners,
     updatePlayersValues
 }
