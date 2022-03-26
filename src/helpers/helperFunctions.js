@@ -1,5 +1,5 @@
 import consts from './consts';
-import { keysPressed } from '../App';
+import { keysPressed } from '../components/GameBoard/GameBoard';
 
 const { ROTATION_DELTA, ROTATION_FRICTION, ROTATION_DELTA_MIN, SPEED_DELTA, DEG_TO_RAD,
     PLAYER_RADIUS, WINDOW_HEIGHT, WINDOW_WIDTH, BOUNCE_FACTOR, SPEED_MIN, SPEED_MAX, SPEED_FRICTION } = consts;
@@ -77,13 +77,18 @@ export const updatePosition = ({ position, speed }) => {
     return pos
 }
 
+const onKeyDown = e => {
+    keysPressed[e.code] = 1;
+}
+const onKeyUp = e => {
+    delete keysPressed[e.code];
+}
 export const setKeyListeners = () => {
-    const onKeyDown = e => {
-        keysPressed[e.code] = 1;
-    }
-    const onKeyUp = e => {
-        delete keysPressed[e.code];
-    }
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("keyup", onKeyUp);
+}
+
+export const unsetKeyListeners = () => {
+    document.removeEventListener("keydown", onKeyDown);
+    document.removeEventListener("keyup", onKeyUp);
 }
