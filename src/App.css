@@ -4,7 +4,16 @@
 }
 
 html {
+    box-sizing: border-box;
+    font-size: 14px;
     position: relative;
+}
+body, h1, h2, h3, p, ol, ul {
+    font-weight: normal;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+ol, ul {
+    list-style: none;
 }
