@@ -4,7 +4,7 @@ const consts = {
     DEG_TO_RAD: Math.PI / 180,
     RAD_TO_DEG: 180 / Math.PI,
     SPEED_DELTA: .4,
-    SPEED_MIN: .01,
+    SPEED_MIN: .05,
     SPEED_MAX: 10,
     SPEED_DELTA_MAX: 5,
     SPEED_FRICTION: .98,
