@@ -1,7 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { StyledGameOver } from './GameOver.Styled';
 
-export default function GameOver() {
+const GameOver = () => {
     return (
-        <h1>GameOver</h1>
+        <StyledGameOver>
+            <h1>Game paused</h1>
+            <p className="restart">Restart the game</p>
+        </StyledGameOver>
     )
 }
+
+export { GameOver };
