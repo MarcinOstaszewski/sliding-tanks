@@ -1,22 +1,38 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-import { playersData } from "./playersData";
 
-const playersValuesSlice = createSlice({
-    name: "playersValues",
-    initialState: playersData,
+const gameStateSlice = createSlice({
+    name: "gameState",
+    initialState: "",
     reducers: {
-        updatePlayersValues(state, action) {
-            return state = action.payload
+        changeGameState(state, action) {
+            return action.payload
+        }
+    }
+})
+
+const activePlayersSlice = createSlice({
+    name: "activePlayers",
+    initialState: {
+        0: true,
+        1: true,
+        2: true,
+        3: true,
+    },
+    reducers: {
+        togglePlayer(state, action) {
+            state[action.payload] = !state[action.payload]
         },
     },
 });
 
 const store = configureStore({
     reducer: {
-        playersValues: playersValuesSlice.reducer
+        activePlayers: activePlayersSlice.reducer,
+        gameState: gameStateSlice.reducer
     },
 });
 
-export const playersActions = playersValuesSlice.actions;
+export const activePlayersActions = activePlayersSlice.actions;
+export const gameStateSliceActions = gameStateSlice.actions;
 
 export default store;
