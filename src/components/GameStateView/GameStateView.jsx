@@ -5,6 +5,7 @@ import Welcome from './Welcome';
 import Settings from './Settings';
 import GameOver from './GameOver';
 import GameBoard from '../GameBoard/GameBoard';
+import { StyledUl } from './GameStateView.Styled';
 import { gameStateSliceActions } from '../../store/index';
 
 const GameStateView = () => {
@@ -35,13 +36,13 @@ const GameStateView = () => {
 
     return (
         <div>
-            <ul className="top-menu">
+            {gameStateComponent}
+            <StyledUl>
                 <li onClick={() => changeGameState('WELCOME')}>WELCOME</li>
                 <li onClick={() => changeGameState('GAME_ON')}>Start Game</li>
-                <li onClick={() => changeGameState('GAME_OVER')}>Game Over</li>
+                <li onClick={() => changeGameState('GAME_OVER')}>Stop the game</li>
                 <li onClick={() => changeGameState('SETTINGS')}>SETTINGS</li>
-            </ul>
-            {gameStateComponent}
+            </StyledUl>
         </div>
     );
 }
