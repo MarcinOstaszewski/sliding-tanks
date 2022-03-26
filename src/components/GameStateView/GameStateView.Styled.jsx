@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { coloursPalette } from '../../helpers/stylesCommons';
 
 const StyledUl = styled.ul`
     position: fixed;
@@ -8,17 +9,17 @@ const StyledUl = styled.ul`
     opacity: .25;
     transition: .2s;
     & li {
-        padding: 6px 10px 7px 11px;
-        background-color: #12553b;
-        color: #67b497;
-        border-right: 1px solid #0a3323;
-        border-left: 1px solid #3f8b6e;
+        padding: 6px 20px 7px 21px;
+        background-color: ${coloursPalette.primary};
+        color: ${coloursPalette.secondaryLight};
+        border-right: 1px solid ${coloursPalette.primary};
+        border-left: 1px solid ${coloursPalette.secondaryLight};
         cursor: pointer;
         transition: .2s;
         &:hover {
-            background-color: #1a7552;
+            background-color: ${coloursPalette.primaryLight};
             transition: .2s;
-            padding: 7px 11px 6px 10px;
+            padding: 7px 21px 6px 20px;
         }
     }
     &:hover {
