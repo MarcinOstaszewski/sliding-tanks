@@ -4,11 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import StyledSettings from './Settings.Styled.jsx'
 
 export default function Settings() {
-    const activePlayers = useSelector(state => state.activePlayers);
+    const activePlayers = useSelector(state => state.activePlayers.list);
     const dispatch = useDispatch();
 
     const togglePlayerActive = (playerId) => {
-        dispatch(activePlayersActions.togglePlayer(playerId));
+        const newPlayersList = {
+            ...activePlayers,
+            [playerId]: !activePlayers[playerId]
+        }
+        dispatch(activePlayersActions.togglePlayer(newPlayersList));
     }
 
     const playersList = Object.keys(activePlayers).map(id => {
@@ -16,7 +20,7 @@ export default function Settings() {
             <li key={id}
                 className={activePlayers[id] ? 'active' : ''}
                 onClick={() => togglePlayerActive(id)}
-            >Player {id}</li>
+            >Player {parseInt(id) + 1}</li>
         )
     })
 

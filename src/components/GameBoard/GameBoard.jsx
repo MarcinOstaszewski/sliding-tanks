@@ -1,3 +1,4 @@
+import '../Player/Player.scss';
 import { useEffect, useState } from 'react';
 import Players from '../Players/Players';
 import useInterval from '../../hooks/useInterval';
@@ -18,7 +19,7 @@ const GameBoard = (props) => {
     };
 
     useInterval(() => {
-        props.setPlayersValues(updatePlayersValues(props.playersValues, props.allPairs));
+        props.setPlayersValues(updatePlayersValues(props.playersValues, props.activePlayersPairs));
     }, consts.FRAME_INTERVAL);
 
     return (
@@ -27,8 +28,9 @@ const GameBoard = (props) => {
                 playersValues={props.playersValues}
                 setPlayersValues={props.setPlayersValues}
                 activePlayers={props.activePlayers}
-                allPairs={props.allPairs}
+                activePlayersPairs={props.activePlayersPairs}
             />
+            <div className="goal"></div>
         </div>
     );
 }

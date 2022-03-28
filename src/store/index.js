@@ -1,4 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { allActivePlayersPairs } from '../helpers';
+import { playersData } from './playersData';
+import { goalData } from './goalData';
 
 const gameStateSlice = createSlice({
     name: "gameState",
@@ -10,17 +13,23 @@ const gameStateSlice = createSlice({
     }
 })
 
+const initialPlayersList = {
+    0: true,
+    1: true,
+    2: true,
+    3: true
+}
+
 const activePlayersSlice = createSlice({
     name: "activePlayers",
     initialState: {
-        0: true,
-        1: true,
-        2: true,
-        3: true,
+        list: initialPlayersList,
+        pairs: allActivePlayersPairs(initialPlayersList)
     },
     reducers: {
         togglePlayer(state, action) {
-            state[action.payload] = !state[action.payload]
+            state.list = action.payload;
+            state.pairs = allActivePlayersPairs(action.payload);
         },
     },
 });
@@ -34,5 +43,9 @@ const store = configureStore({
 
 export const activePlayersActions = activePlayersSlice.actions;
 export const gameStateSliceActions = gameStateSlice.actions;
+export {
+    playersData,
+    goalData
+}
 
 export default store;

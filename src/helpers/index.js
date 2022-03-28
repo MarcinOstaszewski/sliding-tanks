@@ -1,11 +1,13 @@
-import consts from './consts';
 import {
+    consts,
     validateRotationSpeed,
     updateSpeed,
     updatePosition,
     setKeyListeners,
     unsetKeyListeners,
+    allActivePlayersPairs
 } from './helperFunctions';
+
 import { updatePlayersValues } from './playerHelpers';
 
 export {
@@ -15,5 +17,6 @@ export {
     updatePosition,
     setKeyListeners,
     unsetKeyListeners,
+    allActivePlayersPairs,
     updatePlayersValues
 }

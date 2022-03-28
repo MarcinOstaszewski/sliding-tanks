@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { playersData } from "../../store/playersData";
+import { playersData, goalData } from '../../store'
 import { useSelector, useDispatch } from 'react-redux';
 import Welcome from './Welcome';
 import Settings from './Settings';
@@ -11,8 +11,11 @@ import { gameStateSliceActions } from '../../store/index';
 const GameStateView = () => {
     const dispatch = useDispatch();
     const gameState = useSelector(state => state.gameState);
-    const activePlayers = useSelector(state => state.activePlayers);
+    const activePlayersList = useSelector(state => state.activePlayers.list);
+    const activePlayersPairs = useSelector(state => state.activePlayers.pairs);
+
     const [playersValues, setPlayersValues] = useState([...playersData]);
+    const [goalValues, setGoalValues] = useState({ ...goalData });
 
     let gameStateComponent = null;
 
@@ -21,23 +24,20 @@ const GameStateView = () => {
             gameStateComponent = (<Settings />);
             break;
         case 'GAME_ON':
-            const activePlayersIndices = Object.keys(activePlayers).filter(i => activePlayers[i]);
-            const allPlayersPairs = (arr) => arr.map((v, i) => arr.slice(i + 1).map(w => [v, w])).flat();
-            const allPairs = allPlayersPairs(activePlayersIndices);
-
             const activePlayersValues = playersValues.map(
-                (_, index) => activePlayers[index] ? playersValues[index] : ''
+                (_, index) => activePlayersList[index] ? playersValues[index] : ''
             );
-
             gameStateComponent = (
                 <GameBoard
                     playersValues={activePlayersValues}
                     setPlayersValues={setPlayersValues}
-                    allPairs={allPairs}
+                    activePlayersPairs={activePlayersPairs}
+                    goalValues={goalValues}
+                    setGoalValues={setGoalValues}
                 />
             );
             break;
-        case 'GAME_OVER':
+        case 'GAME_PAUSED':
             gameStateComponent = (<GameOver />);
             break;
         default:
@@ -50,12 +50,12 @@ const GameStateView = () => {
     }
 
     return (
-        <div>
+        <div className='test'>
             {gameStateComponent}
             <StyledUl>
                 <li onClick={() => changeGameState('WELCOME')}>WELCOME</li>
                 <li onClick={() => changeGameState('GAME_ON')}>Start Game</li>
-                <li onClick={() => changeGameState('GAME_OVER')}>Pause the game</li>
+                <li onClick={() => changeGameState('GAME_PAUSED')}>Pause the game</li>
                 <li onClick={() => changeGameState('SETTINGS')}>SETTINGS</li>
             </StyledUl>
         </div>

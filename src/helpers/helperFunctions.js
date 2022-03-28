@@ -1,10 +1,11 @@
-import consts from './consts';
+import { consts } from './consts';
 import { keysPressed } from '../components/GameBoard/GameBoard';
 
 const { ROTATION_DELTA, ROTATION_FRICTION, ROTATION_DELTA_MIN, SPEED_DELTA, DEG_TO_RAD,
-    PLAYER_RADIUS, WINDOW_HEIGHT, WINDOW_WIDTH, BOUNCE_FACTOR, SPEED_MIN, SPEED_MAX, SPEED_FRICTION } = consts;
+    PLAYER_RADIUS, WINDOW_HEIGHT, WINDOW_WIDTH, BOUNCE_FACTOR, SPEED_MIN, SPEED_MAX,
+    SPEED_FRICTION, ACCELERATION, DECELERATION } = consts;
 
-export const validateRotationSpeed = (values, keys) => {
+const validateRotationSpeed = (values, keys) => {
     let rotationSpeed = values.rotationSpeed;
     if (keysPressed[keys.left]) {
         rotationSpeed = values.rotationSpeed - ROTATION_DELTA;
@@ -33,10 +34,10 @@ const countNewSpeed = ({ angle, speed }, frwd) => {
 export const updateSpeed = (values, keys) => {
     let newSpeed = { ...values.speed };
     if (keysPressed[keys.frwd] && !keysPressed[keys.back]) {
-        newSpeed = countNewSpeed(values, -1);
+        newSpeed = countNewSpeed(values, ACCELERATION);
     }
     if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
-        newSpeed = countNewSpeed(values, 1);
+        newSpeed = countNewSpeed(values, DECELERATION);
     }
     newSpeed = verifyWallsBounce(newSpeed, values);
     newSpeed = {
@@ -91,4 +92,15 @@ export const setKeyListeners = () => {
 export const unsetKeyListeners = () => {
     document.removeEventListener("keydown", onKeyDown);
     document.removeEventListener("keyup", onKeyUp);
+}
+
+const allActivePlayersPairs = (playersList) => {
+    const arr = Object.keys(playersList).filter(i => playersList[i])
+    return arr.map((v, i) => arr.slice(i + 1).map(w => [v, w])).flat()
+};
+
+export {
+    consts,
+    validateRotationSpeed,
+    allActivePlayersPairs
 }

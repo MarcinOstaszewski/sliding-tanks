@@ -1,4 +1,3 @@
-import './Player.scss';
 import { consts } from '../../helpers';
 
 const Player = (props) => {

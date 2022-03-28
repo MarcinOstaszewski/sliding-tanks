@@ -1,5 +1,4 @@
-import consts from './consts';
-import { validateRotationSpeed, updateSpeed, updatePosition } from './helperFunctions';
+import { consts, validateRotationSpeed, updateSpeed, updatePosition } from './helperFunctions';
 
 const getDistance = (posA, posB) => {
     return Math.sqrt((posA.x - posB.x) ** 2 + (posA.y - posB.y) ** 2);
@@ -18,11 +17,11 @@ const getAngleFromVector = ({ x, y }) => {
     return Math.atan(y / x) * consts.RAD_TO_DEG + (x > 0 ? 90 : 270);
 }
 
-const updatePlayersValues = (playersValues, allPairs) => {
+const updatePlayersValues = (playersValues, activePlayersPairs) => {
     let updatedValues = [];
 
     playersValues.forEach(({ id, values, keys }, index) => {
-        if (!values) return;
+        if (!id) return;
         const newValues = { ...values };
         newValues.rotationSpeed = validateRotationSpeed(newValues, keys);
         newValues.angle += newValues.rotationSpeed;
@@ -32,14 +31,14 @@ const updatePlayersValues = (playersValues, allPairs) => {
         updatedValues[index] = { id, values: { ...newValues }, keys };
     });
 
-    allPairs.forEach(([a, b]) => {
+    activePlayersPairs.forEach(([a, b]) => {
         const [pA, pB] = [updatedValues[a], updatedValues[b]];
         const [posA, posB] = [pA.values.position, pB.values.position];
         const distance = getDistance(posA, posB);
         if (distance < consts.PLAYER_RADIUS * 2) {
             const vectorBetweenPlayers = getVectorBetween(posA, posB);
             const collisionNormalAngle = getAngleFromVector(vectorBetweenPlayers);
-            console.log(pA.values.speed.x, pA.values.speed.x)
+            console.log(collisionNormalAngle);
         }
     });
 

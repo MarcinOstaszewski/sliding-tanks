@@ -9,6 +9,8 @@ const consts = {
     SPEED_DELTA_MAX: 5,
     SPEED_FRICTION: .98,
     SPEED_FACTOR_AFTER_COLLISION: 0.9,
+    ACCELERATION: -1,
+    DECELERATION: .5,
     ROTATION_DELTA: .3,
     ROTATION_FRICTION: .96,
     ROTATION_DELTA_MAX: 5.5,
@@ -18,4 +20,4 @@ const consts = {
     BOUNCE_FACTOR: -0.33,
 }
 
-export default consts;
+export { consts };
