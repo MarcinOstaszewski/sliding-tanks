@@ -1,9 +1,16 @@
+import { consts } from '../helpers';
+
+const xThird = consts.WINDOW_WIDTH / 3;
+const yThird = consts.WINDOW_HEIGHT / 3;
+const xTwoThirds = consts.WINDOW_WIDTH / 3 * 2;
+const yTwoThirds = consts.WINDOW_HEIGHT / 3 * 2;
+
 export const playersData = [{
     id: "player1",
     values: {
         position: {
-            x: 200,
-            y: 200,
+            x: xThird,
+            y: yThird,
         },
         angle: -45,
         speed: {
@@ -12,8 +19,8 @@ export const playersData = [{
         },
         rotationSpeed: 0,
         backgroundColor: "blue",
+        points: 0,
     },
-    points: 0,
     keys: {
         frwd: "KeyW",
         back: "KeyS",
@@ -25,8 +32,8 @@ export const playersData = [{
     id: "player2",
     values: {
         position: {
-            x: 800,
-            y: 200,
+            x: xTwoThirds,
+            y: yThird,
         },
         angle: 45,
         speed: {
@@ -35,8 +42,8 @@ export const playersData = [{
         },
         rotationSpeed: 0,
         backgroundColor: "red",
+        points: 0,
     },
-    points: 0,
     keys: {
         frwd: "BracketLeft",
         back: "Quote",
@@ -48,8 +55,8 @@ export const playersData = [{
     id: "player3",
     values: {
         position: {
-            x: 800,
-            y: 600,
+            x: xTwoThirds,
+            y: yTwoThirds,
         },
         angle: 135,
         speed: {
@@ -58,8 +65,8 @@ export const playersData = [{
         },
         rotationSpeed: 0,
         backgroundColor: "green",
+        points: 0,
     },
-    points: 0,
     keys: {
         frwd: "ArrowUp",
         back: "ArrowDown",
@@ -71,8 +78,8 @@ export const playersData = [{
     id: "player4",
     values: {
         position: {
-            x: 200,
-            y: 600,
+            x: xThird,
+            y: yTwoThirds,
         },
         angle: 225,
         speed: {
@@ -81,8 +88,8 @@ export const playersData = [{
         },
         rotationSpeed: 0,
         backgroundColor: "brown",
+        points: 0,
     },
-    points: 0,
     keys: {
         frwd: "KeyJ",
         back: "KeyM",
