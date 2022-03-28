@@ -1,7 +1,8 @@
 import './GameBoardStyles.scss';
 import { useEffect, useState } from 'react';
 import Players from './Players/Players';
-import Goals from './Goals/Goals'
+import Goals from './Goals/Goals';
+import Score from './Score/Score';
 import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners } from '../../helpers';
 
@@ -30,6 +31,7 @@ const GameBoard = (props) => {
 
     return (
         <div>
+            <Score playersValues={props.playersValues} />
             <Goals
                 position={props.goalValues.position} />
             <Players

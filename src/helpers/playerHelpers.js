@@ -31,7 +31,7 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
 
         const distance = getDistance(newValues.position, goalValues.position);
         if (distance < consts.PLAYER_RADIUS * 2) {
-            console.log('CATCH', index);
+            newValues.points++;
             setGoalValues({
                 position: getRandomGoalPosition(),
                 speed: getRandomGoalSpeed()
