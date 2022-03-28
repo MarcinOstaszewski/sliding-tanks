@@ -13,6 +13,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "blue",
     },
+    points: 0,
     keys: {
         frwd: "KeyW",
         back: "KeyS",
@@ -35,6 +36,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "red",
     },
+    points: 0,
     keys: {
         frwd: "BracketLeft",
         back: "Quote",
@@ -57,6 +59,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "green",
     },
+    points: 0,
     keys: {
         frwd: "ArrowUp",
         back: "ArrowDown",
@@ -79,6 +82,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "brown",
     },
+    points: 0,
     keys: {
         frwd: "KeyJ",
         back: "KeyM",

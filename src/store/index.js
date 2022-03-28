@@ -1,7 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { allActivePlayersPairs } from '../helpers';
 import { playersData } from './playersData';
-import { goalData } from './goalData';
+import { goalData, getRandomGoalPosition, getRandomGoalSpeed } from './goalData';
 
 const gameStateSlice = createSlice({
     name: "gameState",
@@ -45,7 +45,9 @@ export const activePlayersActions = activePlayersSlice.actions;
 export const gameStateSliceActions = gameStateSlice.actions;
 export {
     playersData,
-    goalData
+    goalData,
+    getRandomGoalPosition,
+    getRandomGoalSpeed,
 }
 
 export default store;

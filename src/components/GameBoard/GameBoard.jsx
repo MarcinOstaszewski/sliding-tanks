@@ -20,20 +20,25 @@ const GameBoard = (props) => {
     };
 
     useInterval(() => {
-        props.setPlayersValues(updatePlayersValues(props.playersValues, props.activePlayersPairs));
-        // props.setGoalValues( ......... );
+        props.setPlayersValues(updatePlayersValues({
+            playersValues: props.playersValues,
+            goalValues: props.goalValues,
+            setGoalValues: props.setGoalValues,
+            activePlayersPairs: props.activePlayersPairs
+        }));
     }, consts.FRAME_INTERVAL);
 
     return (
         <div>
+            <Goals
+                position={props.goalValues.position} />
             <Players
                 playersValues={props.playersValues}
                 setPlayersValues={props.setPlayersValues}
                 activePlayers={props.activePlayers}
                 activePlayersPairs={props.activePlayersPairs}
+                setGoalValues={props.setGoalValues}
             />
-            <Goals
-                position={props.goalValues.position} />
         </div>
     );
 }
