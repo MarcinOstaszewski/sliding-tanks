@@ -1,20 +1,11 @@
 import styled from 'styled-components';
-import { coloursPalette } from '../../helpers/stylesCommons';
+import { coloursPalette, basicStyles, headers } from '../../helpers/stylesCommons';
 
 
 const StyledSettings = styled.div`
-    height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: 48px 0;
-    flex-direction: column;
+    ${basicStyles}
     h1 {
-        margin: 12px 48px;
-        padding: 4px 0;
-        color: ${coloursPalette.secondary};
-        font-weight: bold;
-        border-bottom: 2px solid ${coloursPalette.secondary};
+        ${headers.h1}
     }
     .active-players-selector {
         background-color: ${coloursPalette.secondary};

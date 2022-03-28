@@ -54,8 +54,8 @@ const GameStateView = () => {
             {gameStateComponent}
             <StyledUl>
                 <li onClick={() => changeGameState('WELCOME')}>WELCOME</li>
-                <li onClick={() => changeGameState('GAME_ON')}>Start Game</li>
-                <li onClick={() => changeGameState('GAME_PAUSED')}>Pause the game</li>
+                <li onClick={() => changeGameState('GAME_ON')}>START</li>
+                <li onClick={() => changeGameState('GAME_PAUSED')}>PAUSE</li>
                 <li onClick={() => changeGameState('SETTINGS')}>SETTINGS</li>
             </StyledUl>
         </div>

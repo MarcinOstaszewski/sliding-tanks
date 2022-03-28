@@ -1,4 +1,4 @@
-import { consts } from '../../helpers';
+import { consts } from '../../../../helpers';
 
 const Player = (props) => {
     let styles = {

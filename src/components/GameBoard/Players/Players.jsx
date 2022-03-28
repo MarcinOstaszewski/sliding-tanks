@@ -1,5 +1,5 @@
-import React from "react";
-import Player from "../Player/Player";
+import React from 'react';
+import Player from './Player/Player';
 
 const Players = (props) => {
     return props.playersValues.map((player, index) => {

@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import WelcomeStyled from './Welcome.Styled';
 
 export default function Welcome() {
     return (
-        <h1>Welcome to the Sliding Tanks game!</h1>
+        <WelcomeStyled>
+            <h1>Welcome to the <em>Sliding Tanks</em> game!</h1>
+        </WelcomeStyled>
     )
 }
