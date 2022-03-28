@@ -36,3 +36,13 @@
 #player4 {
     background-color: orange;
 }
+
+.goal {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: #666;
+    border: 2px solid #000;
+    transform: translateX(-13px) translateY(-13px);
+}
