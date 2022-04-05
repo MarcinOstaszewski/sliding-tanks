@@ -6,7 +6,7 @@ const Player = (props) => {
                     rotate(${props.values.angle}deg)`,
         left: `${props.values.position.x}px`,
         top: `${props.values.position.y}px`,
-
+        backgroundColor: `${props.values.backgroundColor}`
     }
     return (
         <div className="player" id={props.id} style={styles}></div>

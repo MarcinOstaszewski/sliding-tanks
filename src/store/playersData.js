@@ -18,7 +18,7 @@ export const playersData = [{
             y: 0,
         },
         rotationSpeed: 0,
-        backgroundColor: "blue",
+        backgroundColor: "hsl(220, 100%, 40%)",
         points: 0,
     },
     keys: {
@@ -41,7 +41,7 @@ export const playersData = [{
             y: 0,
         },
         rotationSpeed: 0,
-        backgroundColor: "red",
+        backgroundColor: "hsl(0, 100%, 50%)",
         points: 0,
     },
     keys: {
@@ -64,7 +64,7 @@ export const playersData = [{
             y: 0,
         },
         rotationSpeed: 0,
-        backgroundColor: "green",
+        backgroundColor: "hsl(120, 100%, 30%)",
         points: 0,
     },
     keys: {
@@ -87,7 +87,7 @@ export const playersData = [{
             y: 0,
         },
         rotationSpeed: 0,
-        backgroundColor: "brown",
+        backgroundColor: "hsl(40, 100%, 50%)",
         points: 0,
     },
     keys: {
