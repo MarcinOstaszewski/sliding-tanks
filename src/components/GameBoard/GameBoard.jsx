@@ -33,7 +33,7 @@ const GameBoard = (props) => {
         <div>
             <Score playersValues={props.playersValues} />
             <Goals
-                position={props.goalValues.position} />
+                goalValues={props.goalValues} />
             <Players
                 playersValues={props.playersValues}
                 setPlayersValues={props.setPlayersValues}

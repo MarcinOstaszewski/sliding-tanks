@@ -5,8 +5,10 @@ const Goal = (props) => {
         <div
             className='goal'
             style={{
-                left: props.position.x,
-                top: props.position.y
+                left: props.goalValues.position.x,
+                top: props.goalValues.position.y,
+                width: props.goalValues.width + 'px',
+                height: props.goalValues.height + 'px'
             }}
         ></div>
     )
