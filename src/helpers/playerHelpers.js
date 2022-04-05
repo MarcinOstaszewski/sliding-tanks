@@ -11,9 +11,7 @@ const getNormalVector = (p1, p2) => ({
 });
 const getVectorMagnitude = vector => Math.sqrt(vector.x ** 2 + vector.y ** 2);
 const getUnitNormalVector = (vector) => {
-    console.log('vector:', vector);
-    const vectorMagnitude = getVectorMagnitude(vector) / consts.SPEED_FACTOR_AFTER_COLLISION;
-    console.log('vectorMagnitude: ', vectorMagnitude);
+    const vectorMagnitude = getVectorMagnitude(vector);
     return {
         x: vector.x / vectorMagnitude,
         y: vector.y / vectorMagnitude
@@ -23,7 +21,7 @@ const getUnitTangentVector = (vector) => ({
     x: - vector.y,
     y: vector.x
 });
-const multiplyVector = (unit, vector) => ({
+const multiplyVectors = (unit, vector) => ({
     x: vector.x * unit,
     y: vector.y * unit
 });
@@ -31,24 +29,27 @@ const addVectors = (vectorA, vectorB) => ({
     x: vectorA.x + vectorB.x,
     y: vectorA.y + vectorB.y
 });
-const dotProduct = (v1, v2) => v1.x * v2.y + v1.y * v2.y;
+const dotProduct = (v1, v2) => v1.x * v2.x + v1.y * v2.y;
 
 const correctPositionIfOutOfScreen = (posA, posB) => {
-    if (posA.x < 0 || posB.x < 0) {
-        let correction = Math.min(posA.x, posB.x);
-        posA.x -= correction;
-        posB.x -= correction;
-    } else if (posA.x > consts.WINDOW_WIDTH || posB.x > consts.WINDOW_WIDTH) {
-        let correction = Math.max(posA.x - consts.WINDOW_WIDTH, posB.x - consts.WINDOW_WIDTH);
+    const radius = consts.PLAYER_RADIUS;
+    const maxXCoord = consts.WINDOW_WIDTH - radius;
+    const maxYCoord = consts.WINDOW_HEIGHT - radius;
+    if (posA.x < radius || posB.x < radius) {
+        let correction = Math.abs(Math.max(radius - posA.x, radius - posB.x));
+        posA.x += correction;
+        posB.x += correction;
+    } else if (posA.x > maxXCoord || posB.x > maxXCoord) {
+        let correction = Math.max(posA.x - maxXCoord, posB.x - maxXCoord);
         posA.x -= correction;
         posB.x -= correction;
     }
 
-    if (posA.y < 0 || posB.y < 0) {
-        let correction = Math.min(posA.y, posB.y);
-        posA.y -= correction;
-        posB.y -= correction;
-    } else if (posA.y > consts.WINDOW_WIDTH || posB.y > consts.WINDOW_WIDTH) {
+    if (posA.y < radius || posB.y < radius) {
+        let correction = Math.abs(Math.max(radius - posA.y, radius - posB.y));
+        posA.y += correction;
+        posB.y += correction;
+    } else if (posA.y > maxYCoord || posB.y > maxYCoord) {
         let correction = Math.max(posA.y - consts.WINDOW_WIDTH, posB.y - consts.WINDOW_WIDTH);
         posA.y -= correction;
         posB.y -= correction;
@@ -94,23 +95,20 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
 
     activePlayersPairs.forEach(([a, b]) => {
         const [pA, pB] = [updatedValues[a], updatedValues[b]];
-        const [posA, posB] = [pA.values.position, pB.values.position];
+        const [positionA, positionB] = [pA.values.position, pB.values.position];
         const [speedA, speedB] = [pA.values.speed, pB.values.speed];
-        const distance = getDistance(posA, posB);
+        const distance = getDistance(positionA, positionB);
         if (distance < consts.PLAYER_RADIUS * 2) {
 
-            let normalVector = getNormalVector(posA, posB);
+            let normalVector = getNormalVector(positionA, positionB);
             const collisionDepth = consts.PLAYER_RADIUS * 2 - distance;
             [updatedValues[a].values.position, updatedValues[b].values.position] =
-                eliminateCollisionDepth(posA, posB, normalVector, collisionDepth);
-            // eliminateCollisionDepth(posA, normalVector, collisionDepth);
+                eliminateCollisionDepth(positionA, positionB, normalVector, collisionDepth);
             normalVector = getNormalVector(updatedValues[a].values.position, updatedValues[b].values.position);
 
             // 1. from: https://imada.sdu.dk/~rolf/Edu/DM815/E10/2dcollisions.pdf
             const unitNormalVector = getUnitNormalVector(normalVector);
             const unitTangentVector = getUnitTangentVector(unitNormalVector);
-            console.log('unitNormalVector: ', unitNormalVector);
-            console.log('unitTangentVector', unitTangentVector);
             // 3.
             const speedNormalA = dotProduct(unitNormalVector, speedA);
             const speedTangentA = dotProduct(unitTangentVector, speedA);
@@ -123,18 +121,16 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
             const resultSpeedNormalA = speedNormalB; // as both Players have the same mass
             const resultSpeedNormalB = speedNormalA;
             // 6.
-            const resultSpeedNormalVectorA = multiplyVector(resultSpeedNormalA, unitNormalVector);
-            const resultSpeedTangentVectorA = multiplyVector(resultSpeedTangentA, unitTangentVector);
-            const resultSpeedNormalVectorB = multiplyVector(resultSpeedNormalB, unitNormalVector);
-            const resultSpeedTangentVectorB = multiplyVector(resultSpeedTangentB, unitTangentVector);
+            const resultSpeedNormalVectorA = multiplyVectors(resultSpeedNormalA, unitNormalVector);
+            const resultSpeedTangentVectorA = multiplyVectors(resultSpeedTangentA, unitTangentVector);
+            const resultSpeedNormalVectorB = multiplyVectors(resultSpeedNormalB, unitNormalVector);
+            const resultSpeedTangentVectorB = multiplyVectors(resultSpeedTangentB, unitTangentVector);
             // 7.
             const resultSpeedA = addVectors(resultSpeedNormalVectorA, resultSpeedTangentVectorA);
             const resultSpeedB = addVectors(resultSpeedNormalVectorB, resultSpeedTangentVectorB);
 
             updatedValues[a].values.speed = resultSpeedA;
             updatedValues[b].values.speed = resultSpeedB;
-            console.log('after - A:', speedA, resultSpeedA, '__B: ', speedB, resultSpeedB);
-            console.log('___________')
         }
     });
 
