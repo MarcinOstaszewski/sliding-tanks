@@ -11,7 +11,7 @@ const getNormalVector = (p1, p2) => ({
 });
 const getVectorMagnitude = vector => Math.sqrt(vector.x ** 2 + vector.y ** 2);
 const getUnitNormalVector = (vector) => {
-    const vectorMagnitude = getVectorMagnitude(vector);
+    const vectorMagnitude = getVectorMagnitude(vector) / consts.SPEED_FACTOR_AFTER_COLLISION;
     return {
         x: vector.x / vectorMagnitude,
         y: vector.y / vectorMagnitude
@@ -50,7 +50,7 @@ const correctPositionIfOutOfScreen = (posA, posB) => {
         posA.y += correction;
         posB.y += correction;
     } else if (posA.y > maxYCoord || posB.y > maxYCoord) {
-        let correction = Math.max(posA.y - consts.WINDOW_WIDTH, posB.y - consts.WINDOW_WIDTH);
+        let correction = Math.max(posA.y - maxYCoord, posB.y - maxYCoord);
         posA.y -= correction;
         posB.y -= correction;
     }
