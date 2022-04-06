@@ -22,7 +22,7 @@ const headers = {
         margin: 12px 48px;
         padding: 4px 0;
         color: ${coloursPalette.secondary};
-        border-bottom: 2px solid ${coloursPalette.secondary};
+        text-transform: uppercase;
     `
 }
 
