@@ -17,8 +17,8 @@ const StyledGameOver = styled.div`
     }
     .restart {
         padding: 12px;
-        color: #c77;
-        background-color: #fee;
+        color: ${coloursPalette.secondaryLight};
+        background-color: ${coloursPalette.secondary};
     }
 `
 
