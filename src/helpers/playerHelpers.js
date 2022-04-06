@@ -87,8 +87,8 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
             setGoalValues({
                 position: getRandomGoalPosition(),
                 speed: getRandomGoalSpeed(),
-                width: goalValues.width - consts.PLAYER_RADIUS / 5,
-                height: goalValues.height - consts.PLAYER_RADIUS / 5,
+                width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 5 : goalValues.width,
+                height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 5 : goalValues.height,
                 prize: 1,
             });
         }
