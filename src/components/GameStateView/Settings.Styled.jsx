@@ -18,7 +18,7 @@ const StyledSettings = styled.div`
             align-items: flex-start;
             margin-top: 12px;
             li {
-                padding: 6px 60px;
+                padding: 6px 32px;
                 margin: 6px 0;
                 border: 1px solid transparent;
                 &.active {
@@ -30,6 +30,14 @@ const StyledSettings = styled.div`
                 }
                 &:hover {
                     background-color: ${coloursPalette.primary};
+                }
+                div {
+                    width: 12px;
+                    height: 12px;
+                    border: 2px solid #333;
+                    margin-left: 32px;
+                    display: inline-block;
+                    background-color: black;
                 }
             }
         }

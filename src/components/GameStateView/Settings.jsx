@@ -1,7 +1,8 @@
 import React from 'react';
 import { activePlayersActions } from '../../store/index';
 import { useSelector, useDispatch } from 'react-redux';
-import StyledSettings from './Settings.Styled.jsx'
+import StyledSettings from './Settings.Styled.jsx';
+import { playersData } from '../../store/playersData';
 
 export default function Settings() {
     const activePlayers = useSelector(state => state.activePlayers.list);
@@ -20,7 +21,9 @@ export default function Settings() {
             <li key={id}
                 className={activePlayers[id] ? 'active' : ''}
                 onClick={() => togglePlayerActive(id)}
-            >Player {parseInt(id) + 1}</li>
+            >Player {parseInt(id) + 1}
+                <div style={{ 'background-color': playersData[id].values.backgroundColor }}></div>
+            </li>
         )
     })
 
