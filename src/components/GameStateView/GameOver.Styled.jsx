@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import { coloursPalette } from '../../helpers/stylesCommons';
+import {
+    coloursPalette,
+    headers
+} from '../../helpers/stylesCommons';
 
 const StyledGameOver = styled.div`
     height: 75vh;
@@ -9,11 +12,8 @@ const StyledGameOver = styled.div`
     margin: 48px 0;
     flex-direction: column;
     h1 {
-        margin: 12px 48px 20%;
-        padding: 4px 0;
-        color: ${coloursPalette.secondary};
-        font-weight: bold;
-        border-bottom: 2px solid ${coloursPalette.secondary};
+        ${headers.h1}
+        margin-bottom: 48px;
     }
     .restart {
         padding: 12px;
