@@ -7,6 +7,7 @@ import {
 
 const WelcomeStyled = styled.div`
     ${basicStyles}
+    align-items: center;
     h1 {
         ${headers.h1}
     }

@@ -4,7 +4,10 @@ import WelcomeStyled from './Welcome.Styled';
 export default function Welcome() {
     return (
         <WelcomeStyled>
-            <h1>Welcome to the <em>Sliding Tanks</em> game!</h1>
+            <p>Welcome to</p>
+            <h1>Sliding Tanks</h1>
+            <p>change game properties in <strong>Settings</strong></p><br />
+            <p>then you can <strong>Start</strong> and <strong>Pause</strong> the game</p>
         </WelcomeStyled>
     )
 }
