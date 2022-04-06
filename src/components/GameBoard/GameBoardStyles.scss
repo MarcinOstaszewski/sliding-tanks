@@ -25,11 +25,27 @@
 }
 
 .goal {
-    // width: 26px;
-    // height: 26px;
     border-radius: 50%;
     position: absolute;
-    background-color: #666;
-    border: 2px solid #000;
-    transform: translateX(-13px) translateY(-13px);
+    border: 3px solid #bea519;
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        width: 75%;
+        height: 75%;
+        &.heart {
+            fill: #e13be4;
+        }
+        &.star {
+            fill: #e6ca2c;
+            animation: rotate 15s linear infinite;
+        }
+    }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
 }

@@ -15,6 +15,7 @@ export const getRandomGoalSpeed = () => ({
 export const goalData = {
     position: getRandomGoalPosition(),
     speed: getRandomGoalSpeed(),
-    width: consts.PLAYER_RADIUS * 2,
-    height: consts.PLAYER_RADIUS * 2,
+    width: consts.PLAYER_RADIUS * 4,
+    height: consts.PLAYER_RADIUS * 4,
+    prize: 1
 }

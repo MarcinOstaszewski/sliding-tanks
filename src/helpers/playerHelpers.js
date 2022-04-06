@@ -82,11 +82,14 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         newValues.position = updatePosition(newValues);
 
         const distance = getDistance(newValues.position, goalValues.position);
-        if (distance < consts.PLAYER_RADIUS * 2) {
-            newValues.points++;
+        if (distance < consts.PLAYER_RADIUS + (goalValues.width / 2)) {
+            newValues.points += goalValues.prize;
             setGoalValues({
                 position: getRandomGoalPosition(),
-                speed: getRandomGoalSpeed()
+                speed: getRandomGoalSpeed(),
+                width: goalValues.width - consts.PLAYER_RADIUS / 5,
+                height: goalValues.height - consts.PLAYER_RADIUS / 5,
+                prize: 1,
             });
         }
 
