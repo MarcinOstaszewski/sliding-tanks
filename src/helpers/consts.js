@@ -18,6 +18,7 @@ const consts = {
     WINDOW_HEIGHT: window.innerHeight,
     WINDOW_WIDTH: window.innerWidth,
     BOUNCE_FACTOR: -0.33,
+    WORKSHOP_SCALE: 4
 }
 
 export { consts };
