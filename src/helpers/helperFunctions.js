@@ -39,7 +39,7 @@ export const updateSpeed = (values, keys) => {
     if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
         newSpeed = countNewSpeed(values, DECELERATION);
     }
-    newSpeed = verifyWallsBounce(newSpeed, values);
+    [newSpeed, values] = verifyWallsBounce(newSpeed, values);
     newSpeed = {
         x: validateSpeed(newSpeed.x),
         y: validateSpeed(newSpeed.y)
@@ -57,16 +57,22 @@ const validateSpeed = speed => {
 const verifyWallsBounce = (newSpeed, vals) => {
     if (vals.position.x + newSpeed.x < PLAYER_RADIUS
         || vals.position.x + newSpeed.x > WINDOW_WIDTH - PLAYER_RADIUS) {
+        vals.health -= Math.abs(newSpeed.x);
+
         newSpeed.x *= BOUNCE_FACTOR;
     }
     if (vals.position.y + newSpeed.y < PLAYER_RADIUS
         || vals.position.y + newSpeed.y > WINDOW_HEIGHT - PLAYER_RADIUS) {
+        vals.health -= Math.abs(newSpeed.y);
         newSpeed.y *= BOUNCE_FACTOR;
     }
-    return {
-        x: newSpeed.x,
-        y: newSpeed.y
-    };
+    return [
+        {
+            x: newSpeed.x,
+            y: newSpeed.y
+        },
+        vals
+    ];
 }
 
 export const updatePosition = ({ position, speed }) => {

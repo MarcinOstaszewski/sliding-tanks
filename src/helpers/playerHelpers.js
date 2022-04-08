@@ -1,5 +1,6 @@
 import { consts, validateRotationSpeed, updateSpeed, updatePosition } from './helperFunctions';
 import { getRandomGoalPosition, getRandomGoalSpeed } from '../store';
+import { getVectorMagnitude } from './vectorHelpers';
 
 const getDistance = (posA, posB) => {
     return Math.sqrt((posA.x - posB.x) ** 2 + (posA.y - posB.y) ** 2);
@@ -9,7 +10,6 @@ const getNormalVector = (p1, p2) => ({
     x: p2.x - p1.x,
     y: p2.y - p1.y
 });
-const getVectorMagnitude = vector => Math.sqrt(vector.x ** 2 + vector.y ** 2);
 const getUnitNormalVector = (vector) => {
     const vectorMagnitude = getVectorMagnitude(vector) / consts.SPEED_FACTOR_AFTER_COLLISION;
     return {
@@ -102,6 +102,10 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         const [speedA, speedB] = [pA.values.speed, pB.values.speed];
         const distance = getDistance(positionA, positionB);
         if (distance < consts.PLAYER_RADIUS * 2) {
+
+            const collisionForce = getVectorMagnitude(speedA) + getVectorMagnitude(speedB);
+            updatedValues[a].values.health -= collisionForce;
+            updatedValues[b].values.health -= collisionForce;
 
             let normalVector = getNormalVector(positionA, positionB);
             const collisionDepth = consts.PLAYER_RADIUS * 2 - distance;

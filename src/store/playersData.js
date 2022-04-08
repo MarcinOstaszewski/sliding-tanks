@@ -20,6 +20,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "hsl(220, 100%, 40%)",
         points: 0,
+        health: 100,
     },
     keys: {
         frwd: "KeyW",
@@ -43,6 +44,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "hsl(0, 100%, 50%)",
         points: 0,
+        health: 100,
     },
     keys: {
         frwd: "BracketLeft",
@@ -66,6 +68,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "hsl(120, 100%, 30%)",
         points: 0,
+        health: 100,
     },
     keys: {
         frwd: "ArrowUp",
@@ -89,6 +92,7 @@ export const playersData = [{
         rotationSpeed: 0,
         backgroundColor: "hsl(40, 100%, 50%)",
         points: 0,
+        health: 100,
     },
     keys: {
         frwd: "KeyJ",

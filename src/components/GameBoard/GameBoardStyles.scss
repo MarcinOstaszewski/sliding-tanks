@@ -1,26 +1,35 @@
-.player {
-    width: 25px;
-    height: 25px;
-    border-radius: 9px 9px 5px 5px;
+.position {
     position: absolute;
-    &::before,
-    &:after {
-        content: "";
+    .player {
+        width: 25px;
+        height: 25px;
+        border-radius: 9px 9px 5px 5px;
+        &::before,
+        &:after {
+            content: "";
+            position: absolute;
+            background-color: rgba(256, 256, 256, .7);
+        }
+        &:before {
+            top: 10px;
+            left: 7px;
+            width: 12px;
+            height: 10px;
+            border-radius: 3px;
+        }
+        &:after {
+            top: 2px;
+            left: 11px;
+            width: 4px;
+            height: 8px;
+        }
+    }
+    .health {
         position: absolute;
-        background-color: rgba(256, 256, 256, .7);
-    }
-    &:before {
-        top: 10px;
-        left: 7px;
-        width: 12px;
-        height: 10px;
-        border-radius: 3px;
-    }
-    &:after {
-        top: 2px;
-        left: 11px;
-        width: 4px;
-        height: 8px;
+        top: -10px;
+        width: 20px;
+        height: 3px;
+        opacity: .75;
     }
 }
 
@@ -43,6 +52,11 @@
             animation: rotate 15s linear infinite;
         }
     }
+}
+
+.workshop {
+    border-radius: 35%;
+    position: absolute;
 }
 
 @keyframes rotate {
