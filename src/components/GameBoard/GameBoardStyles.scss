@@ -57,6 +57,17 @@
 .workshop {
     border-radius: 35%;
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        width: 80%;
+        height: 80%;
+        animation: rotate 5s linear infinite;
+        path {
+            fill: #e1d798;
+        }
+    }
 }
 
 @keyframes rotate {

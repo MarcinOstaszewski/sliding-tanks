@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Players from './Players/Players';
 import Goals from './Goals/Goals';
 import Score from './Score/Score';
+import Workshop from './Workshop/Workshop';
 import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners } from '../../helpers';
 
@@ -41,6 +42,7 @@ const GameBoard = (props) => {
                 activePlayersPairs={props.activePlayersPairs}
                 setGoalValues={props.setGoalValues}
             />
+            <Workshop />
         </div>
     );
 }
