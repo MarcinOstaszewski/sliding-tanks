@@ -82,9 +82,23 @@ const updatePlayersHealth = (vals) => {
     if (distanceToWorkshop <= workshopAffectingDistance) {
         vals.health += 1 - distanceToWorkshop / workshopAffectingDistance; //(5 / 30);
         if (vals.health > 100) vals.health = 100;
-        console.log(1 - distanceToWorkshop / workshopAffectingDistance, vals.healtha);
     }
     return vals.health;
+}
+
+const checkIfGoalCaught = (newValues, goalValues, setGoalValues) => {
+    const goalDistance = getDistance(newValues.position, goalValues.position);
+    if (goalDistance < consts.PLAYER_RADIUS + (goalValues.width / 2)) {
+        setGoalValues({
+            position: getRandomGoalPosition(),
+            speed: getRandomGoalSpeed(),
+            width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
+            height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
+            prize: 1,
+        });
+        newValues.points += goalValues.prize;
+    }
+    return newValues.points;
 }
 
 const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activePlayersPairs }) => {
@@ -98,19 +112,7 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         newValues.speed = updateSpeed(newValues, keys);
         newValues.position = updatePosition(newValues);
         newValues.health = updatePlayersHealth(newValues);
-
-        // check if player caught the goal
-        const goalDistance = getDistance(newValues.position, goalValues.position);
-        if (goalDistance < consts.PLAYER_RADIUS + (goalValues.width / 2)) {
-            newValues.points += goalValues.prize;
-            setGoalValues({
-                position: getRandomGoalPosition(),
-                speed: getRandomGoalSpeed(),
-                width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
-                height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
-                prize: 1,
-            });
-        }
+        newValues.points = checkIfGoalCaught(newValues, goalValues, setGoalValues)
 
         updatedValues[index] = { id, values: { ...newValues }, keys };
     });
