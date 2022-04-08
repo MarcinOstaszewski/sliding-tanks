@@ -3,7 +3,9 @@ const coloursPalette = {
     primaryLight: '#6ea171',
     secondary: '#675645',
     secondaryLight: '#e1d798',
-    tertiary: '#424756'
+    tertiary: '#424756',
+    darkGray: '#333',
+    black: '#000'
 };
 
 const basicStyles = `
@@ -13,6 +15,12 @@ const basicStyles = `
     justify-content: flex-start;
     margin: 48px 0;
     flex-direction: column;
+    .d-flex {
+        display: flex;
+    }
+    .hidden {
+        display: none !important;
+    }
 `
 
 const headers = {
