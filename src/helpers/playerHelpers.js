@@ -1,4 +1,11 @@
-import { consts, validateRotationSpeed, updateSpeed, updatePosition } from './helperFunctions';
+import {
+    consts,
+    validateRotationSpeed,
+    updateSpeed,
+    updatePosition,
+    workshpCoords,
+    workshopAffectingDistance
+} from './helperFunctions';
 import { getRandomGoalPosition, getRandomGoalSpeed } from '../store';
 import { getVectorMagnitude } from './vectorHelpers';
 
@@ -70,6 +77,16 @@ const eliminateCollisionDepth = (posA, posB, normalVector, collisionDepth) => {
     return correctPositionIfOutOfScreen(newPosA, newPosB);
 };
 
+const updatePlayersHealth = (vals) => {
+    const distanceToWorkshop = getDistance(vals.position, workshpCoords);
+    if (distanceToWorkshop <= workshopAffectingDistance) {
+        vals.health += 1 - distanceToWorkshop / workshopAffectingDistance; //(5 / 30);
+        if (vals.health > 100) vals.health = 100;
+        console.log(1 - distanceToWorkshop / workshopAffectingDistance, vals.healtha);
+    }
+    return vals.health;
+}
+
 const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activePlayersPairs }) => {
     let updatedValues = [];
 
@@ -80,15 +97,17 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         newValues.angle += newValues.rotationSpeed;
         newValues.speed = updateSpeed(newValues, keys);
         newValues.position = updatePosition(newValues);
+        newValues.health = updatePlayersHealth(newValues);
 
-        const distance = getDistance(newValues.position, goalValues.position);
-        if (distance < consts.PLAYER_RADIUS + (goalValues.width / 2)) {
+        // check if player caught the goal
+        const goalDistance = getDistance(newValues.position, goalValues.position);
+        if (goalDistance < consts.PLAYER_RADIUS + (goalValues.width / 2)) {
             newValues.points += goalValues.prize;
             setGoalValues({
                 position: getRandomGoalPosition(),
                 speed: getRandomGoalSpeed(),
-                width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 5 : goalValues.width,
-                height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 5 : goalValues.height,
+                width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
+                height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
                 prize: 1,
             });
         }
@@ -100,15 +119,15 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         const [pA, pB] = [updatedValues[a], updatedValues[b]];
         const [positionA, positionB] = [pA.values.position, pB.values.position];
         const [speedA, speedB] = [pA.values.speed, pB.values.speed];
-        const distance = getDistance(positionA, positionB);
-        if (distance < consts.PLAYER_RADIUS * 2) {
+        const distanceBetween = getDistance(positionA, positionB);
+        if (distanceBetween < consts.PLAYER_RADIUS * 2) {
 
             const collisionForce = getVectorMagnitude(speedA) + getVectorMagnitude(speedB);
             updatedValues[a].values.health -= collisionForce;
             updatedValues[b].values.health -= collisionForce;
 
             let normalVector = getNormalVector(positionA, positionB);
-            const collisionDepth = consts.PLAYER_RADIUS * 2 - distance;
+            const collisionDepth = consts.PLAYER_RADIUS * 2 - distanceBetween;
             [updatedValues[a].values.position, updatedValues[b].values.position] =
                 eliminateCollisionDepth(positionA, positionB, normalVector, collisionDepth);
             normalVector = getNormalVector(updatedValues[a].values.position, updatedValues[b].values.position);

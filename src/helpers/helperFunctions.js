@@ -105,8 +105,17 @@ const allActivePlayersPairs = (playersList) => {
     return arr.map((v, i) => arr.slice(i + 1).map(w => [v, w])).flat()
 };
 
+const workshpCoords = {
+    x: consts.WINDOW_WIDTH / 2,
+    y: consts.WINDOW_HEIGHT / 2
+}
+
+const workshopAffectingDistance = consts.PLAYER_RADIUS * (consts.WORKSHOP_SCALE / 2 + 1);
+
 export {
     consts,
     validateRotationSpeed,
-    allActivePlayersPairs
+    allActivePlayersPairs,
+    workshpCoords,
+    workshopAffectingDistance
 }
