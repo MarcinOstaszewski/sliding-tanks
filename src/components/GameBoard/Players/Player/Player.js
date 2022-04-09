@@ -14,6 +14,9 @@ const Player = (props) => {
         width: `${props.values.health}%`,
         backgroundColor: `hsl(${props.values.health}deg 50% 50%)`
     }
+    if (props.values.position.y < consts.PLAYER_RADIUS * 2) {
+        healthStyles.top = `${consts.PLAYER_RADIUS * 2.75}px`
+    }
     return (
         <div className="position" id={props.id} style={positionStyles}>
             <div className="player" style={playerStyles}></div>
