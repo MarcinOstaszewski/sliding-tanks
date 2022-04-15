@@ -48,15 +48,15 @@ const StyledSettings = styled.div`
                     }
                 }
                 .player-keys {
+                    cursor: pointer;
                     border-radius: 3px;
                     padding: 4px 12px;
                     margin-left: 24px;
-                    border: 2px solid ${coloursPalette.darkGray};
-                    color: ${coloursPalette.darkGray};
                     transition: .2s;
+                    color: ${coloursPalette.secondaryLight};
+                    border: 2px solid ${coloursPalette.secondaryLight};
                     &:hover, &.active {
-                        color: ${coloursPalette.secondaryLight};
-                        border: 2px solid ${coloursPalette.secondaryLight};
+                        box-shadow: 0px 0px 1px 2px ${coloursPalette.secondaryLight} inset;
                         transition: .2s;
                     }
                 }
@@ -66,15 +66,17 @@ const StyledSettings = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* height: 160px; */
-            margin: 0 0 0 40px;
-            padding: 20px;
-            border: 1px solid ${coloursPalette.secondaryLight};
+            margin: 0 0 0 30px;
+            padding: 20px 10px;
+        }
+        .player-display {
+            font-weight: bold;
+            padding-bottom: 15px;
         }
         .key-display {
             width: 100px;
             height: 45px;
-            margin: 15px 5px;
+            margin: 10px 5px;
             display: flex;
             text-align: center;
             justify-content: center;
