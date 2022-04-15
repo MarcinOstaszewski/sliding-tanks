@@ -6,8 +6,8 @@ export default function Welcome() {
         <WelcomeStyled>
             <p>Welcome to</p>
             <h1>Sliding Tanks</h1>
-            <p>set game properties in <strong>Settings</strong></p>
-            <p>then you can <strong>Start</strong> and <strong>Pause</strong> the game</p>
+            <p>You can check / set game properties in <strong>Settings</strong></p>
+            <p>Then you can <strong>Start</strong> and <strong>Pause</strong> the game</p>
 
             <h2>The rules are simple:</h2>
             <ul>
