@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { activePlayersActions } from '../../store/index';
 import { useSelector, useDispatch } from 'react-redux';
 import StyledSettings from './Settings.Styled.jsx';
-import { playersData } from '../../store/playersData';
 
-export default function Settings() {
-    const [activePlayerKeys, setActivePlayerKeys] = useState({});
+export default function Settings(props) {
     const [activeKeysId, setActiveKeysId] = useState(undefined);
     const activePlayers = useSelector(state => state.activePlayers.list);
     const dispatch = useDispatch();
@@ -20,9 +18,19 @@ export default function Settings() {
 
     const showPlayerKeys = (e) => {
         const id = e.target.dataset.id;
-        setActivePlayerKeys(playersData[id].keys);
         setActiveKeysId(id)
     }
+
+    const changePlayersKeyBinding = (e) => {
+        const id = e.target.closest('.active-keys-display').dataset.id
+        const direction = e.target.dataset.direction;
+        const newPlayersValues = [...props.playersValues];
+        newPlayersValues[id].keys[direction] = e.code;
+        // TO DO should check if this key code is not already in use
+        props.setPlayersValues(newPlayersValues);
+    }
+
+    const doNothing = () => null;
 
     const playersList = Object.keys(activePlayers).map(id => {
         return (
@@ -33,7 +41,7 @@ export default function Settings() {
                 >
                     Player {parseInt(id) + 1}
                     <div className="player-colour"
-                        style={{ backgroundColor: playersData[id].values.backgroundColor }}>
+                        style={{ backgroundColor: props.playersValues[id].values.backgroundColor }}>
                     </div>
                 </div>
                 <div className={"player-keys" + (activeKeysId === id ? " active" : "")}
@@ -42,7 +50,18 @@ export default function Settings() {
                 >Show keys</div>
             </li>
         )
-    })
+    });
+
+    const buildKeyInput = (direction, id) => {
+        return (
+            <input data-direction={direction}
+                type="text"
+                className="key-display"
+                value={props.playersValues[id].keys[direction]}
+                onKeyDown={changePlayersKeyBinding}
+                onChange={doNothing} />
+        )
+    }
 
     return (
         <StyledSettings>
@@ -53,16 +72,21 @@ export default function Settings() {
                     <ul>
                         {playersList}
                     </ul>
-                    <div className={"active-keys-display" + (Object.keys(activePlayerKeys).length ? "" : " hidden")}>
-                        <div className="d-flex">
-                            <div id="frwd" className="key-display">{activePlayerKeys.frwd}</div>
+                    {activeKeysId && (
+                        <div className={"active-keys-display"} data-id={activeKeysId}>
+                            <div className="d-flex">
+                                <div id="player-id" className="player-display">Player {+activeKeysId + 1} keys</div>
+                            </div>
+                            <div className="d-flex">
+                                {buildKeyInput('frwd', activeKeysId)}
+                            </div>
+                            <div className="d-flex">
+                                {buildKeyInput('left', activeKeysId)}
+                                {buildKeyInput('back', activeKeysId)}
+                                {buildKeyInput('rght', activeKeysId)}
+                            </div>
                         </div>
-                        <div className="d-flex">
-                            <div id="left" className="key-display">{activePlayerKeys.left}</div>
-                            <div id="back" className="key-display">{activePlayerKeys.back}</div>
-                            <div id="rght" className="key-display">{activePlayerKeys.rght}</div>
-                        </div>
-                    </div>
+                    )}
                 </div>
 
             </div>
