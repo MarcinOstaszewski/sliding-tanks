@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { playersData, goalData } from '../../store'
 import { useSelector, useDispatch } from 'react-redux';
-import Welcome from './Welcome';
-import Settings from './Settings';
-import { GameOver } from './GameOver';
+import { Welcome, Settings, GameOver } from './';
 import GameBoard from '../GameBoard/GameBoard';
 import { StyledUl } from './GameStateView.Styled';
 import { gameStateSliceActions } from '../../store/index';
@@ -21,7 +19,12 @@ const GameStateView = () => {
 
     switch (gameState) {
         case 'SETTINGS':
-            gameStateComponent = (<Settings />);
+            gameStateComponent = (
+                <Settings
+                    playersValues={playersValues}
+                    setPlayersValues={setPlayersValues}
+                />
+            );
             break;
         case 'GAME_ON':
             const activePlayersValues = playersValues.map(

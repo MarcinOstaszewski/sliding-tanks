@@ -10,4 +10,4 @@ const GameOver = () => {
     )
 }
 
-export { GameOver };
+export default GameOver;
