@@ -7,36 +7,16 @@ import {
     workshopAffectingDistance
 } from './helperFunctions';
 import { getRandomGoalPosition, getRandomGoalSpeed } from '../store';
-import { getVectorMagnitude } from './vectorHelpers';
-
-const getDistance = (posA, posB) => {
-    return Math.sqrt((posA.x - posB.x) ** 2 + (posA.y - posB.y) ** 2);
-}
-
-const getNormalVector = (p1, p2) => ({
-    x: p2.x - p1.x,
-    y: p2.y - p1.y
-});
-const getUnitNormalVector = (vector) => {
-    const vectorMagnitude = getVectorMagnitude(vector) / consts.SPEED_FACTOR_AFTER_COLLISION;
-    return {
-        x: vector.x / vectorMagnitude,
-        y: vector.y / vectorMagnitude
-    }
-};
-const getUnitTangentVector = (vector) => ({
-    x: - vector.y,
-    y: vector.x
-});
-const multiplyVectors = (unit, vector) => ({
-    x: vector.x * unit,
-    y: vector.y * unit
-});
-const addVectors = (vectorA, vectorB) => ({
-    x: vectorA.x + vectorB.x,
-    y: vectorA.y + vectorB.y
-});
-const dotProduct = (v1, v2) => v1.x * v2.x + v1.y * v2.y;
+import {
+    getVectorMagnitude,
+    getDistance,
+    getNormalVector,
+    getUnitNormalVector,
+    getUnitTangentVector,
+    multiplyVectors,
+    addVectors,
+    dotProduct
+} from './vectorHelpers';
 
 const correctPositionIfOutOfScreen = (posA, posB) => {
     const radius = consts.PLAYER_RADIUS;
@@ -135,7 +115,7 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
             normalVector = getNormalVector(updatedValues[a].values.position, updatedValues[b].values.position);
 
             // 1. from: https://imada.sdu.dk/~rolf/Edu/DM815/E10/2dcollisions.pdf
-            const unitNormalVector = getUnitNormalVector(normalVector);
+            const unitNormalVector = getUnitNormalVector(normalVector, consts);
             const unitTangentVector = getUnitTangentVector(unitNormalVector);
             // 3.
             const speedNormalA = dotProduct(unitNormalVector, speedA);
