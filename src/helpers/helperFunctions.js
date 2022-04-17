@@ -56,13 +56,13 @@ const validateSpeed = speed => {
 
 const verifyWallsBounce = (newSpeed, vals) => {
     if (vals.position.x + newSpeed.x < PLAYER_RADIUS
-        || vals.position.x + newSpeed.x > WINDOW_WIDTH - PLAYER_RADIUS) {
+        || vals.position.x + newSpeed.x > WINDOW_WIDTH - 2 * PLAYER_RADIUS) {
         vals.health -= Math.abs(newSpeed.x);
 
         newSpeed.x *= BOUNCE_FACTOR;
     }
     if (vals.position.y + newSpeed.y < PLAYER_RADIUS
-        || vals.position.y + newSpeed.y > WINDOW_HEIGHT - PLAYER_RADIUS) {
+        || vals.position.y + newSpeed.y > WINDOW_HEIGHT - 3 * PLAYER_RADIUS) {
         vals.health -= Math.abs(newSpeed.y);
         newSpeed.y *= BOUNCE_FACTOR;
     }
