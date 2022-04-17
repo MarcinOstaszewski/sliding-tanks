@@ -6,6 +6,7 @@ import Score from './Score/Score';
 import Workshop from './Workshop/Workshop';
 import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners } from '../../helpers';
+import Borders from './Borders/Borders';
 
 const keysPressed = {};
 
@@ -32,6 +33,7 @@ const GameBoard = (props) => {
 
     return (
         <div>
+            <Borders />
             <Score playersValues={props.playersValues} />
             <Goals
                 goalValues={props.goalValues} />

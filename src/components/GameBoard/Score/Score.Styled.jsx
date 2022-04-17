@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { consts } from '../../../helpers/consts';
 
 const ScoreStyled = styled.div`
     p {
@@ -7,16 +8,16 @@ const ScoreStyled = styled.div`
         font-weight: bold;
         opacity: .5;
         &.top {
-            top: 35px;
+            top: ${consts.PLAYER_RADIUS * 2}px;
         }
         &.left {
-            left: 35px;
+            left: ${consts.PLAYER_RADIUS * 2}px;
         }
         &.right {
-            right: 35px;
+            right: ${consts.PLAYER_RADIUS * 3}px;
         }
         &.bottom {
-            bottom: 35px;
+            bottom: ${consts.PLAYER_RADIUS * 3}px;
         }
     }
 

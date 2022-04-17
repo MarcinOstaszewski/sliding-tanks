@@ -1,15 +1,16 @@
 import styled from 'styled-components';
+import { consts } from '../../helpers';
 import { coloursPalette } from '../../helpers/stylesCommons';
 
 const StyledUl = styled.ul`
     position: fixed;
-    top: 0px;
-    right: 0px;;
+    bottom: 0px;
+    right: ${consts.PLAYER_RADIUS}px;
     display: flex;
-    opacity: .25;
     transition: .2s;
     & li {
-        padding: 6px 20px 7px 21px;
+        height: ${consts.PLAYER_RADIUS * 2}px;
+        padding: 0 20px;
         background-color: ${coloursPalette.primary};
         color: ${coloursPalette.secondaryLight};
         border-right: 1px solid ${coloursPalette.primary};
@@ -19,12 +20,8 @@ const StyledUl = styled.ul`
         &:hover {
             background-color: ${coloursPalette.primaryLight};
             transition: .2s;
-            padding: 7px 21px 6px 20px;
+            padding: 0 21px 0 19px;
         }
-    }
-    &:hover {
-        opacity: 1;
-        transition: .2s;
     }
 `
 
