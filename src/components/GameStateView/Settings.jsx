@@ -16,17 +16,26 @@ export default function Settings(props) {
         dispatch(activePlayersActions.togglePlayer(newPlayersList));
     }
 
-    const showPlayerKeys = (e) => {
+    const showPlayerKeys = e => {
         const id = e.target.dataset.id;
         setActiveKeysId(id)
     }
 
-    const changePlayersKeyBinding = (e) => {
-        const id = e.target.closest('.active-keys-display').dataset.id
+    const getPlayerId = e => {
+        return e.target.closest('.active-keys-display').dataset.id;
+    }
+
+    const changePlayersKeyBinding = e => {
         const direction = e.target.dataset.direction;
         const newPlayersValues = [...props.playersValues];
-        newPlayersValues[id].keys[direction] = e.code;
+        newPlayersValues[getPlayerId(e)].keys[direction] = e.code;
         // TO DO should check if this key code is not already in use
+        props.setPlayersValues(newPlayersValues);
+    }
+
+    const updateColourValue = e => {
+        const newPlayersValues = [...props.playersValues];
+        newPlayersValues[getPlayerId(e)].values.backgroundColor = e.target.value;
         props.setPlayersValues(newPlayersValues);
     }
 
@@ -41,13 +50,13 @@ export default function Settings(props) {
                 >
                     Player {parseInt(id) + 1}
                     <div className="player-colour"
-                        style={{ backgroundColor: props.playersValues[id].values.backgroundColor }}>
+                        style={{ backgroundColor: `hsl(${props.playersValues[id].values.backgroundColor}, 100%, 35%)` }}>
                     </div>
                 </div>
                 <div className={"player-keys" + (activeKeysId === id ? " active" : "")}
                     data-id={id}
                     onClick={showPlayerKeys}
-                >Show keys</div>
+                >Change</div>
             </li>
         )
     });
@@ -75,7 +84,9 @@ export default function Settings(props) {
                     {activeKeysId && (
                         <div className={"active-keys-display"} data-id={activeKeysId}>
                             <div className="d-flex">
-                                <div id="player-id" className="player-display">Player {+activeKeysId + 1} keys</div>
+                                <div className="player-display">
+                                    <strong>Player {+activeKeysId + 1}:</strong><span>Key bindings</span>
+                                </div>
                             </div>
                             <div className="d-flex">
                                 {buildKeyInput('frwd', activeKeysId)}
@@ -85,10 +96,19 @@ export default function Settings(props) {
                                 {buildKeyInput('back', activeKeysId)}
                                 {buildKeyInput('rght', activeKeysId)}
                             </div>
+                            <div className="player-display">
+                                <span>Tank colour</span>
+                            </div>
+                            <input
+                                min="0"
+                                max="360"
+                                value={props.playersValues[activeKeysId].values.backgroundColor}
+                                type="range"
+                                onChange={updateColourValue}
+                                className="colour-range-input" />
                         </div>
                     )}
                 </div>
-
             </div>
         </StyledSettings>
     )

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import { consts } from '../../helpers';
 import { coloursPalette, basicStyles, headers } from '../../helpers/stylesCommons';
-
 
 const StyledSettings = styled.div`
     ${basicStyles}
@@ -8,8 +8,7 @@ const StyledSettings = styled.div`
         ${headers.h1}
     }
     .active-players-selector {
-        background-color: ${coloursPalette.secondary};
-        color: ${coloursPalette.secondaryLight};
+        color: ${coloursPalette.secondary};
         padding: 36px 60px 36px 48px;
         border-radius: 0 12px 12px 0;
         ul {
@@ -24,40 +23,70 @@ const StyledSettings = styled.div`
                     display: inline-block;
                 }
                 .player-button {
-                    padding: 6px 32px;
+                    cursor: pointer;
+                    position: relative;
+                    color: ${coloursPalette.tertiary};
+                    padding: 6px 16px 6px 32px;
                     margin: 6px 0;
                     border: 1px solid transparent;
                     transition: .2s;
                     &.active {
-                        border: 1px solid ${coloursPalette.secondaryLight};
-                        background-color: ${coloursPalette.primaryLight};
+                        color: ${coloursPalette.secondaryLight};
+                        background-color: ${coloursPalette.secondary};
                         &:hover {
                             background-color: ${coloursPalette.primary};
                         }
                     }
+                    &.active::before {
+                        content: '';
+                        position: absolute;
+                        left: 13px;
+                        top: 10px;
+                        height: 10px;
+                        width: 5px;
+                        border: 0px;
+                        border-right: 2px solid ${coloursPalette.secondaryLight};
+                        border-bottom: 2px solid ${coloursPalette.secondaryLight};
+                        transform: rotate(40deg);
+                    }
                     &:hover {
-                        background-color: ${coloursPalette.primary};
+                        background-color: ${coloursPalette.secondaryLight};
                         transition: .2s;
                     }
                     .player-colour {
-                        width: 12px;
-                        height: 12px;
-                        border: 2px solid ${coloursPalette.darkGray};
+                        width: 16px;
+                        height: 16px;
                         margin-left: 32px;
-                        background-color: ${coloursPalette.black};
                     }
                 }
                 .player-keys {
+                    position: relative;
                     cursor: pointer;
-                    border-radius: 3px;
+                    border-radius: 12px;
                     padding: 4px 12px;
                     margin-left: 24px;
                     transition: .2s;
-                    color: ${coloursPalette.secondaryLight};
-                    border: 2px solid ${coloursPalette.secondaryLight};
+                    color: ${coloursPalette.secondary};
+                    border: 2px solid ${coloursPalette.secondary};
                     &:hover, &.active {
-                        box-shadow: 0px 0px 1px 2px ${coloursPalette.secondaryLight} inset;
+                        box-shadow: 0px 0px 1px 2px ${coloursPalette.secondary} inset;
                         transition: .2s;
+                    }
+                    &:hover {
+                        background-color: ${coloursPalette.secondaryLight};
+                    }
+                    &.active::after {
+                        content: '';
+                        position: absolute;
+                        top: 4px;
+                        right: -36px;
+                        border-color: ${coloursPalette.secondary};
+                        width: 18px;
+                        height: 18px;
+                        border-style: solid;
+                        border-width: 4px 4px 0 0;
+                        transform: rotate(45deg);
+                        animation: horizontalWave .6s ease-in-out infinite alternate;
                     }
                 }
             }
@@ -66,24 +95,76 @@ const StyledSettings = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0 0 0 30px;
-            padding: 20px 10px;
+            margin: -32px 0 0 48px;
+            padding: 10px;
         }
         .player-display {
-            font-weight: bold;
-            padding-bottom: 15px;
+            display: flex;
+            justify-content: flex-start;
+            padding-bottom: 6px;
         }
         .key-display {
-            width: 100px;
-            height: 45px;
+            width: 96px;
+            height: 35px;
             margin: 10px 5px;
             display: flex;
             text-align: center;
             justify-content: center;
             align-items: center;
-            border: 1px solid ${coloursPalette.secondaryLight};
-            border-radius: 10px 10px 5px 5px;
+            border: 1px solid ${coloursPalette.secondary};
+            border-bottom-width: 4px;
+            border-radius: 18px 18px 6px 6px;
+            :focus {
+                outline: 2px solid ${coloursPalette.primary};
+            }
         }
+        input[type=range].colour-range-input {
+            -webkit-appearance: none;
+            margin-top: 10px;
+            width: 100%;
+            height: 12px;
+            cursor: pointer;
+            background-image: linear-gradient(to right,
+                 hsl(0, 100%, 35%),
+                 hsl(60, 100%, 35%),
+                 hsl(120, 100%, 35%),
+                 hsl(180, 100%, 35%),
+                 hsl(240, 100%, 35%),
+                 hsl(300, 100%, 35%),
+                 hsl(360, 100%, 35%)
+                 
+            );
+            ::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                border: 6px solid #000;
+                height: 24px;
+                width: 12px;
+                border-left: none;
+                border-right: none;
+                background: transparent;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+            ::-moz-range-thumb {
+                -webkit-appearance: none;
+                border: 1px solid #000;
+                height: 12px;
+                width: 12px;
+                background: transparent;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            :focus {
+                outline: none;
+            }
+
+
+
+        }
+    }
+    @keyframes horizontalWave {
+        0% { right: -30px;}
+        100% { right: -38px;}
     }
 `
 

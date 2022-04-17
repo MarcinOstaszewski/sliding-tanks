@@ -7,7 +7,7 @@ const Player = (props) => {
         top: `${props.values.position.y}px`
     }
     const playerStyles = {
-        backgroundColor: `${props.values.backgroundColor}`,
+        backgroundColor: `hsl(${props.values.backgroundColor}, 100%, 35%)`,
         transform: `rotate(${props.values.angle}deg)`
     }
     const healthStyles = {
