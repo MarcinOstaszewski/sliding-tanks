@@ -5,7 +5,8 @@ const coloursPalette = {
     secondaryLight: '#e1d798',
     tertiary: '#424756',
     darkGray: '#333',
-    black: '#000'
+    black: '#000',
+    veryLightGrey: '#eee'
 };
 
 const basicStyles = `
@@ -20,6 +21,9 @@ const basicStyles = `
     }
     .hidden {
         display: none !important;
+    }
+    .w-100 {
+        width: 100%;
     }
 `
 

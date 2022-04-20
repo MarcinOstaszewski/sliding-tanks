@@ -75,19 +75,18 @@ export default function Settings(props) {
     return (
         <StyledSettings>
             <h1>Settings</h1>
-            <div className="active-players-selector">
-                Choose Active Players:
+            <div className="settings-container active-players-selector">
+                Active Players:
                 <div className="d-flex">
                     <ul>
                         {playersList}
                     </ul>
                     {activeKeysId && (
                         <div className={"active-keys-display"} data-id={activeKeysId}>
-                            <div className="d-flex">
-                                <div className="player-display">
-                                    <strong>Player {+activeKeysId + 1}:</strong><span>Key bindings</span>
-                                </div>
+                            <div className="player-display w-100">
+                                <strong>Player {+activeKeysId + 1}</strong>
                             </div>
+                            <div className="player-display-title">Key bindings:</div>
                             <div className="d-flex">
                                 {buildKeyInput('frwd', activeKeysId)}
                             </div>
@@ -97,7 +96,7 @@ export default function Settings(props) {
                                 {buildKeyInput('rght', activeKeysId)}
                             </div>
                             <div className="player-display">
-                                <span>Tank colour</span>
+                                <div className="player-display-title">Tank colour:</div>
                             </div>
                             <input
                                 min="0"

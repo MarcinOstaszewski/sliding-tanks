@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { consts } from '../../helpers';
 import { coloursPalette, basicStyles, headers } from '../../helpers/stylesCommons';
 
 const StyledSettings = styled.div`
@@ -7,10 +6,13 @@ const StyledSettings = styled.div`
     h1 {
         ${headers.h1}
     }
-    .active-players-selector {
+    .settings-container {
+        margin-bottom: 36px;
+        padding: 18px 60px 18px 48px;
         color: ${coloursPalette.secondary};
-        padding: 36px 60px 36px 48px;
-        border-radius: 0 12px 12px 0;
+        background-color: ${coloursPalette.veryLightGrey};
+    }
+    .active-players-selector {
         ul {
             display: flex;
             flex-direction: column;
@@ -27,7 +29,7 @@ const StyledSettings = styled.div`
                     position: relative;
                     color: ${coloursPalette.tertiary};
                     padding: 6px 16px 6px 32px;
-                    margin: 6px 0;
+                    margin: 12px 0;
                     border: 1px solid transparent;
                     transition: .2s;
                     &.active {
@@ -61,15 +63,18 @@ const StyledSettings = styled.div`
                 }
                 .player-keys {
                     position: relative;
+                    font-size: 12px;
+                    padding: 12px;
                     cursor: pointer;
-                    border-radius: 12px;
-                    padding: 4px 12px;
-                    margin-left: 24px;
+                    margin-left: 18px;
                     transition: .2s;
                     color: ${coloursPalette.secondary};
-                    border: 2px solid ${coloursPalette.secondary};
+                    text-decoration: underline;
                     &:hover, &.active {
-                        box-shadow: 0px 0px 1px 2px ${coloursPalette.secondary} inset;
+                        border-color: ${coloursPalette.secondary};
+                        border-style: solid;
+                        border-width: 0px;
+                        border-bottom-width: 1px;
                         transition: .2s;
                     }
                     &:hover {
@@ -78,13 +83,13 @@ const StyledSettings = styled.div`
                     &.active::after {
                         content: '';
                         position: absolute;
-                        top: 4px;
+                        top: 12px;
                         right: -36px;
                         border-color: ${coloursPalette.secondary};
-                        width: 18px;
-                        height: 18px;
+                        width: 12px;
+                        height: 12px;
                         border-style: solid;
-                        border-width: 4px 4px 0 0;
+                        border-width: 2px 2px 0 0;
                         transform: rotate(45deg);
                         animation: horizontalWave .6s ease-in-out infinite alternate;
                     }
@@ -95,27 +100,32 @@ const StyledSettings = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: -32px 0 0 48px;
-            padding: 10px;
+            margin-left: 90px;
+            padding-top: 12px;
         }
         .player-display {
             display: flex;
             justify-content: flex-start;
-            padding-bottom: 6px;
+            &-title {
+                margin: 6px 0;
+            }
         }
         .key-display {
+            cursor: pointer;
             width: 96px;
-            height: 35px;
-            margin: 10px 5px;
+            height: 24px;
+            margin: 12px 6px;
             display: flex;
             text-align: center;
             justify-content: center;
             align-items: center;
-            border: 1px solid ${coloursPalette.secondary};
-            border-bottom-width: 4px;
-            border-radius: 18px 18px 6px 6px;
+            border-width: 0;
+            border-bottom-color: ${coloursPalette.secondary};
+            border-bottom-style: solid;
+            border-bottom-width: 3px;
+            border-radius: 0 0 3px 3px;
             :focus {
-                outline: 2px solid ${coloursPalette.primary};
+                outline: none;
             }
         }
         input[type=range].colour-range-input {
@@ -157,9 +167,6 @@ const StyledSettings = styled.div`
             :focus {
                 outline: none;
             }
-
-
-
         }
     }
     @keyframes horizontalWave {
