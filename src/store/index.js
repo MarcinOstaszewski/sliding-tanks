@@ -7,8 +7,22 @@ const gameStateSlice = createSlice({
     name: "gameState",
     initialState: "",
     reducers: {
-        changeGameState(state, action) {
+        changeGameState(_, action) {
             return action.payload
+        }
+    }
+});
+
+const initialGameSettings = {
+    winningScore: 25
+}
+
+const gameSettingsSlice = createSlice({
+    name: "gameSettings",
+    initialState: initialGameSettings,
+    reducers: {
+        changeGameSettings(_, action) {
+            return { winningScore: action.payload };
         }
     }
 })
@@ -37,10 +51,12 @@ const activePlayersSlice = createSlice({
 const store = configureStore({
     reducer: {
         activePlayers: activePlayersSlice.reducer,
+        gameSettings: gameSettingsSlice.reducer,
         gameState: gameStateSlice.reducer
     },
 });
 
+export const gameSettingsActions = gameSettingsSlice.actions;
 export const activePlayersActions = activePlayersSlice.actions;
 export const gameStateSliceActions = gameStateSlice.actions;
 export {

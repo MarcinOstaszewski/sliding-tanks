@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { activePlayersActions } from '../../store/index';
+import { activePlayersActions, gameSettingsActions } from '../../store';
 import { useSelector, useDispatch } from 'react-redux';
 import StyledSettings from './Settings.Styled.jsx';
+import { getColorFromValue } from '../../helpers';
 
 export default function Settings(props) {
     const [activeKeysId, setActiveKeysId] = useState(undefined);
     const activePlayers = useSelector(state => state.activePlayers.list);
+    const gameSettings = useSelector(state => state.gameSettings);
     const dispatch = useDispatch();
 
     const togglePlayerActive = (playerId) => {
@@ -50,7 +52,7 @@ export default function Settings(props) {
                 >
                     Player {parseInt(id) + 1}
                     <div className="player-colour"
-                        style={{ backgroundColor: `hsl(${props.playersValues[id].values.backgroundColor}, 100%, 35%)` }}>
+                        style={{ backgroundColor: getColorFromValue(props.playersValues[id].values.backgroundColor) }}>
                     </div>
                 </div>
                 <div className={"player-keys" + (activeKeysId === id ? " active" : "")}
@@ -65,18 +67,22 @@ export default function Settings(props) {
         return (
             <input data-direction={direction}
                 type="text"
-                className="key-display"
+                className="value-display"
                 value={props.playersValues[id].keys[direction]}
                 onKeyDown={changePlayersKeyBinding}
                 onChange={doNothing} />
         )
     }
 
+    const changeWinningScore = (e) => {
+        dispatch(gameSettingsActions.changeGameSettings(e.target.value));
+    }
+
     return (
         <StyledSettings>
             <h1>Settings</h1>
             <div className="settings-container active-players-selector">
-                Active Players:
+                <h2>Active Players</h2>
                 <div className="d-flex">
                     <ul>
                         {playersList}
@@ -107,6 +113,16 @@ export default function Settings(props) {
                                 className="colour-range-input" />
                         </div>
                     )}
+                </div>
+            </div>
+            <div className="settings-container game-settings">
+                <h2>Game settings values</h2>
+                <div className="game-values-list d-flex">
+                    Winning score:
+                    <input
+                        type="number" min="1" max="999"
+                        className="value-display winning-score"
+                        value={gameSettings.winningScore} onChange={changeWinningScore} />
                 </div>
             </div>
         </StyledSettings>

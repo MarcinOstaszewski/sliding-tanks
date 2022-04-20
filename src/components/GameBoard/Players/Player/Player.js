@@ -1,4 +1,4 @@
-import { consts } from '../../../../helpers';
+import { consts, getColorFromValue } from '../../../../helpers';
 
 const Player = (props) => {
     const positionStyles = {
@@ -7,12 +7,12 @@ const Player = (props) => {
         top: `${props.values.position.y}px`
     }
     const playerStyles = {
-        backgroundColor: `hsl(${props.values.backgroundColor}, 100%, 35%)`,
+        backgroundColor: getColorFromValue(props.values.backgroundColor),
         transform: `rotate(${props.values.angle}deg)`
     }
     const healthStyles = {
         width: `${props.values.health}%`,
-        backgroundColor: `hsl(${props.values.health}deg 50% 50%)`
+        backgroundColor: `hsl(${props.values.health} 50% 50%)`
     }
     if (props.values.position.y < consts.PLAYER_RADIUS * 2) {
         healthStyles.top = `${consts.PLAYER_RADIUS * 2.75}px`

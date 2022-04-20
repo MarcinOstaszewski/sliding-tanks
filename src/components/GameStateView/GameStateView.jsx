@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { playersData, goalData } from '../../store'
+import { playersData, goalData, gameStateSliceActions } from '../../store'
 import { useSelector, useDispatch } from 'react-redux';
 import { Welcome, Settings, GameOver } from './';
 import GameBoard from '../GameBoard/GameBoard';
 import { StyledUl } from './GameStateView.Styled';
-import { gameStateSliceActions } from '../../store/index';
 
 const GameStateView = () => {
     const dispatch = useDispatch();
@@ -53,7 +52,7 @@ const GameStateView = () => {
     }
 
     return (
-        <div className='test'>
+        <div>
             {gameStateComponent}
             <StyledUl>
                 <li onClick={() => changeGameState('WELCOME')}>WELCOME</li>

@@ -1,20 +1,19 @@
 import ScoreStyled from './Score.Styled';
+import { getColorFromValue } from '../../../helpers';
 
 const Score = (props) => {
+    const showPlayersScore = (pos, id) => (
+        <p className={`${pos} player${+id + 1}`} style={{ color: getColorFromValue(props.playersValues[id]?.values?.backgroundColor) }}>
+            {props.playersValues[id]?.values?.points}
+        </p>
+    );
+
     return (
         <ScoreStyled>
-            <p className="top left player1" style={{ color: props.playersValues[0]?.values?.backgroundColor }}>
-                {props.playersValues[0]?.values?.points}
-            </p>
-            <p className="top right player2" style={{ color: props.playersValues[1]?.values?.backgroundColor }}>
-                {props.playersValues[1]?.values?.points}
-            </p>
-            <p className="bottom right player3" style={{ color: props.playersValues[2]?.values?.backgroundColor }}>
-                {props.playersValues[2]?.values?.points}
-            </p>
-            <p className="bottom left player4" style={{ color: props.playersValues[3]?.values?.backgroundColor }}>
-                {props.playersValues[3]?.values?.points}
-            </p>
+            {showPlayersScore('top left', 0)}
+            {showPlayersScore('top right', 1)}
+            {showPlayersScore('bottom right', 2)}
+            {showPlayersScore('bottom left', 3)}
         </ScoreStyled>)
 }
 

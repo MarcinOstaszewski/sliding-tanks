@@ -5,7 +5,9 @@ const GameOver = () => {
     return (
         <StyledGameOver>
             <h1>Game paused</h1>
-            <p className="restart">Restart the game</p>
+            <p className="restart" onClick={() => window.location.href = '/'}>
+                Restart the game
+            </p>
         </StyledGameOver>
     )
 }

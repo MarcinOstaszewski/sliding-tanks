@@ -66,22 +66,32 @@ const updatePlayersHealth = (vals) => {
     return vals.health;
 }
 
-const checkIfGoalCaught = (newValues, goalValues, setGoalValues) => {
+const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings, id }) => {
     const goalDistance = getDistance(newValues.position, goalValues.position);
     if (goalDistance < consts.PLAYER_RADIUS + (goalValues.width / 2)) {
-        setGoalValues({
-            position: getRandomGoalPosition(),
-            speed: getRandomGoalSpeed(),
-            width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
-            height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
-            prize: 1,
-        });
+
         newValues.points += goalValues.prize;
+
+        if (newValues.points >= gameSettings.winningScore) {
+            consts.FRAME_INTERVAL = null;
+            consts.WINNING_PLAYER = {
+                id,
+                colour: newValues.backgroundColor
+            }
+        } else {
+            setGoalValues({
+                position: getRandomGoalPosition(),
+                speed: getRandomGoalSpeed(),
+                width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
+                height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
+                prize: 1,
+            });
+        }
     }
     return newValues.points;
 }
 
-const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activePlayersPairs }) => {
+const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activePlayersPairs, gameSettings }) => {
     let updatedValues = [];
 
     playersValues.forEach(({ id, values, keys }, index) => {
@@ -92,7 +102,7 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         newValues.speed = updateSpeed(newValues, keys);
         newValues.position = updatePosition(newValues);
         newValues.health = updatePlayersHealth(newValues);
-        newValues.points = checkIfGoalCaught(newValues, goalValues, setGoalValues)
+        newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id })
 
         updatedValues[index] = { id, values: { ...newValues }, keys };
     });

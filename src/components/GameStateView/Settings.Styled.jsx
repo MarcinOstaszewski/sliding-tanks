@@ -6,18 +6,37 @@ const StyledSettings = styled.div`
     h1 {
         ${headers.h1}
     }
+    h2 {
+        ${headers.h2}
+    }
     .settings-container {
-        margin-bottom: 36px;
-        padding: 18px 60px 18px 48px;
+        margin-bottom: 24px;
+        padding: 0 60px 18px 48px;
         color: ${coloursPalette.secondary};
         background-color: ${coloursPalette.veryLightGrey};
+    }
+    .value-display {
+        cursor: pointer;
+        max-width: 96px;
+        height: 24px;
+        margin: 0 6px 12px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        border-width: 0;
+        border-bottom-color: ${coloursPalette.secondary};
+        border-bottom-style: solid;
+        border-bottom-width: 3px;
+        border-radius: 0 0 3px 3px;
+        :focus {
+            outline: none;
+        }
     }
     .active-players-selector {
         ul {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin-top: 12px;
             li {
                 display: flex;
                 align-items: center;
@@ -101,31 +120,12 @@ const StyledSettings = styled.div`
             flex-direction: column;
             align-items: center;
             margin-left: 90px;
-            padding-top: 12px;
         }
         .player-display {
             display: flex;
             justify-content: flex-start;
             &-title {
-                margin: 6px 0;
-            }
-        }
-        .key-display {
-            cursor: pointer;
-            width: 96px;
-            height: 24px;
-            margin: 12px 6px;
-            display: flex;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            border-width: 0;
-            border-bottom-color: ${coloursPalette.secondary};
-            border-bottom-style: solid;
-            border-bottom-width: 3px;
-            border-radius: 0 0 3px 3px;
-            :focus {
-                outline: none;
+                margin: 6px 0 12px;
             }
         }
         input[type=range].colour-range-input {
@@ -167,6 +167,12 @@ const StyledSettings = styled.div`
             :focus {
                 outline: none;
             }
+        }
+    }
+    .game-values-list {
+        padding: 20px 0;
+        .winning-score {
+            display: inline-block;
         }
     }
     @keyframes horizontalWave {

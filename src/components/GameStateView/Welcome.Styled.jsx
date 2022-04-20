@@ -12,13 +12,10 @@ const WelcomeStyled = styled.div`
         ${headers.h1}
     }
     h2 {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 30px 0 20px;
-        text-decoration: underline;
+        ${headers.h2}
     }
     p {
-        padding: 5px 0;
+        padding: 3px 0;
     }
     ul {
         list-style: disc;

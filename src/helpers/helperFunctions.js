@@ -112,10 +112,15 @@ const workshpCoords = {
 
 const workshopAffectingDistance = consts.PLAYER_RADIUS * (consts.WORKSHOP_SCALE / 2 + 1);
 
+const getColorFromValue = (value) => {
+    return `hsl(${value}, 100%, 35%)`;
+}
+
 export {
     consts,
     validateRotationSpeed,
     allActivePlayersPairs,
     workshpCoords,
-    workshopAffectingDistance
+    workshopAffectingDistance,
+    getColorFromValue
 }

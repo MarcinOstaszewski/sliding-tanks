@@ -14,7 +14,7 @@ const basicStyles = `
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    margin: 48px 0;
+    margin: 36px 0 0 0;
     flex-direction: column;
     .d-flex {
         display: flex;
@@ -35,11 +35,23 @@ const headers = {
         padding: 4px 0;
         color: ${coloursPalette.secondary};
         text-transform: uppercase;
+    `,
+    h2: `
+        font-size: 20px;
+        font-weight: bold;
+        padding: 24px 0 12px;
+        text-decoration: underline;
     `
 }
+const restartButton = `
+    padding: 12px;
+    color: ${coloursPalette.secondaryLight};
+    background-color: ${coloursPalette.secondary};
+`
 
 export {
     coloursPalette,
     basicStyles,
-    headers
+    headers,
+    restartButton
 };

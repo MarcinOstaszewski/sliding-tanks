@@ -5,10 +5,13 @@ import {
     updatePosition,
     setKeyListeners,
     unsetKeyListeners,
-    allActivePlayersPairs
+    allActivePlayersPairs,
+    getColorFromValue
 } from './helperFunctions';
 
-import { updatePlayersValues } from './playerHelpers';
+import {
+    updatePlayersValues,
+} from './playerHelpers';
 
 export {
     consts,
@@ -18,5 +21,6 @@ export {
     setKeyListeners,
     unsetKeyListeners,
     allActivePlayersPairs,
-    updatePlayersValues
+    updatePlayersValues,
+    getColorFromValue
 }
