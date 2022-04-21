@@ -1,10 +1,8 @@
-import { consts } from '../helpers';
-
-const getRandomBeteween = (min, max) => Math.random() * (max - min) + min / 2;
+import { consts, getRandomBeteween } from '../helpers';
 
 export const getRandomGoalPosition = () => ({
-    x: getRandomBeteween(consts.PLAYER_RADIUS * 4, consts.WINDOW_WIDTH),
-    y: getRandomBeteween(consts.PLAYER_RADIUS * 4, consts.WINDOW_HEIGHT)
+    x: getRandomBeteween(consts.PLAYER_RADIUS * 5, consts.WINDOW_WIDTH - consts.PLAYER_RADIUS * 5),
+    y: getRandomBeteween(consts.PLAYER_RADIUS * 5, consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5)
 })
 
 export const getRandomGoalSpeed = () => ({

@@ -6,7 +6,8 @@ import {
     setKeyListeners,
     unsetKeyListeners,
     allActivePlayersPairs,
-    getColorFromValue
+    getColorFromValue,
+    getRandomBeteween
 } from './helperFunctions';
 
 import {
@@ -22,5 +23,6 @@ export {
     unsetKeyListeners,
     allActivePlayersPairs,
     updatePlayersValues,
-    getColorFromValue
+    getColorFromValue,
+    getRandomBeteween
 }
