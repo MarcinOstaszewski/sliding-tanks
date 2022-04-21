@@ -1,13 +1,13 @@
-import { consts, getRandomBeteween } from '../helpers';
+import { consts, getRandomBetween } from '../helpers';
 
 export const getRandomGoalPosition = () => ({
-    x: getRandomBeteween(consts.PLAYER_RADIUS * 5, consts.WINDOW_WIDTH - consts.PLAYER_RADIUS * 5),
-    y: getRandomBeteween(consts.PLAYER_RADIUS * 5, consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5)
+    x: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_WIDTH - consts.PLAYER_RADIUS * 5),
+    y: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5)
 })
 
 export const getRandomGoalSpeed = () => ({
-    x: getRandomBeteween(-3, 3),
-    y: getRandomBeteween(-3, 3),
+    x: getRandomBetween(-3, 3),
+    y: getRandomBetween(-3, 3),
 })
 
 export const goalData = {

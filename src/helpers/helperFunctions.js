@@ -39,6 +39,9 @@ export const updateSpeed = (values, keys) => {
     if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
         newSpeed = countNewSpeed(values, DECELERATION);
     }
+    if (keysPressed[keys.back] && keysPressed[keys.frwd]) {
+        console.log(values)
+    }
 
     [newSpeed, values] = verifyWallsBounce(newSpeed, values);
     newSpeed = {
@@ -117,7 +120,7 @@ const getColorFromValue = (value) => {
     return `hsl(${value}, 100%, 35%)`;
 }
 
-const getRandomBeteween = (min, max) => Math.random() * (max - min) + min / 2;
+const getRandomBetween = (min, max) => Math.random() * (max - min) + min / 2;
 
 export {
     consts,
@@ -126,5 +129,5 @@ export {
     workshpCoords,
     workshopAffectingDistance,
     getColorFromValue,
-    getRandomBeteween
+    getRandomBetween
 }
