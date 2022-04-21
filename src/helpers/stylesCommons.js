@@ -44,6 +44,7 @@ const headers = {
     `
 }
 const restartButton = `
+    cursor: pointer;
     padding: 12px;
     color: ${coloursPalette.secondaryLight};
     background-color: ${coloursPalette.secondary};
