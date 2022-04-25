@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { playersData, goalData, gameStateSliceActions } from '../../store'
+import { playersData, goalData, bonusData, gameStateSliceActions } from '../../store'
 import { useSelector, useDispatch } from 'react-redux';
 import { Welcome, Settings, GameOver } from './';
 import GameBoard from '../GameBoard/GameBoard';
@@ -13,6 +13,7 @@ const GameStateView = () => {
 
     const [playersValues, setPlayersValues] = useState([...playersData]);
     const [goalValues, setGoalValues] = useState({ ...goalData });
+    const [bonusValues, setBonusValues] = useState({ ...bonusData });
 
     let gameStateComponent = null;
 
@@ -36,6 +37,8 @@ const GameStateView = () => {
                     activePlayersPairs={activePlayersPairs}
                     goalValues={goalValues}
                     setGoalValues={setGoalValues}
+                    bonusValues={bonusValues}
+                    setBonusValues={setBonusValues}
                 />
             );
             break;

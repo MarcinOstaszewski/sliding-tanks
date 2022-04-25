@@ -6,7 +6,7 @@ import {
     workshpCoords,
     workshopAffectingDistance
 } from './helperFunctions';
-import { getRandomGoalPosition, getRandomGoalSpeed } from '../store';
+import { getRandomPosition, getRandomSpeed } from './index';
 import {
     getVectorMagnitude,
     getDistance,
@@ -80,8 +80,8 @@ const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings,
             }
         } else {
             setGoalValues({
-                position: getRandomGoalPosition(),
-                speed: getRandomGoalSpeed(),
+                position: getRandomPosition(),
+                speed: getRandomSpeed(),
                 width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
                 height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
                 prize: 1,
@@ -91,7 +91,24 @@ const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings,
     return newValues.points;
 }
 
-const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activePlayersPairs, gameSettings }) => {
+const checkIfBonusCaught = ({ newValues, bonusValues, setBonusValues, id }) => {
+    const bonusDistance = getDistance(newValues.position, bonusValues.position);
+    if (id === 'player1') {
+        if (bonusDistance < 30) {
+            console.log('CAUGHT');
+        }
+    }
+}
+
+const updatePlayersValues = ({
+    playersValues,
+    goalValues,
+    setGoalValues,
+    bonusValues,
+    setBonusValues,
+    activePlayersPairs,
+    gameSettings
+}) => {
     let updatedValues = [];
 
     playersValues.forEach(({ id, values, keys }, index) => {
@@ -103,6 +120,7 @@ const updatePlayersValues = ({ playersValues, goalValues, setGoalValues, activeP
         newValues.position = updatePosition(newValues);
         newValues.health = updatePlayersHealth(newValues);
         newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id })
+        newValues.points = checkIfBonusCaught({ newValues, bonusValues, setBonusValues, id })
 
         updatedValues[index] = { id, values: { ...newValues }, keys };
     });

@@ -7,7 +7,9 @@ import {
     unsetKeyListeners,
     allActivePlayersPairs,
     getColorFromValue,
-    getRandomBetween
+    getRandomBetween,
+    getRandomPosition,
+    getRandomSpeed
 } from './helperFunctions';
 
 import {
@@ -24,5 +26,7 @@ export {
     allActivePlayersPairs,
     updatePlayersValues,
     getColorFromValue,
-    getRandomBetween
+    getRandomBetween,
+    getRandomPosition,
+    getRandomSpeed
 }

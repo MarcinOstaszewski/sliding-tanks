@@ -122,6 +122,16 @@ const getColorFromValue = (value) => {
 
 const getRandomBetween = (min, max) => Math.random() * (max - min) + min / 2;
 
+const getRandomPosition = () => ({
+    x: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_WIDTH - consts.PLAYER_RADIUS * 5),
+    y: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5)
+})
+
+const getRandomSpeed = () => ({
+    x: getRandomBetween(-3, 3),
+    y: getRandomBetween(-3, 3),
+})
+
 export {
     consts,
     validateRotationSpeed,
@@ -129,5 +139,7 @@ export {
     workshpCoords,
     workshopAffectingDistance,
     getColorFromValue,
-    getRandomBetween
+    getRandomBetween,
+    getRandomPosition,
+    getRandomSpeed
 }
