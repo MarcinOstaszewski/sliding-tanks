@@ -8,6 +8,7 @@ import Workshop from './Workshop/Workshop';
 import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners, getColorFromValue } from '../../helpers';
 import Borders from './Borders/Borders';
+import Bonus from './Bonus/Bonus';
 
 const keysPressed = {};
 
@@ -30,6 +31,8 @@ const GameBoard = (props) => {
             playersValues: props.playersValues,
             goalValues: props.goalValues,
             setGoalValues: props.setGoalValues,
+            bonusValues: props.bonusValues,
+            setBonusValues: props.setBonusValues,
             activePlayersPairs: props.activePlayersPairs,
             gameSettings: gameSettings
         }));
@@ -56,8 +59,8 @@ const GameBoard = (props) => {
         <div>
             <Borders />
             <Score playersValues={props.playersValues} />
-            <Goals
-                goalValues={props.goalValues} />
+            <Goals goalValues={props.goalValues} />
+            <Bonus bonusValues={props.bonusValues} />
             <Players
                 playersValues={props.playersValues}
                 setPlayersValues={props.setPlayersValues}

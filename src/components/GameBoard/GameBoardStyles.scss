@@ -43,16 +43,47 @@
     align-items: center;
     justify-content: center;
     z-index: -15;
+    transform: translate(-50%, -50%);
     svg {
         width: 75%;
         height: 75%;
-        &.heart {
-            fill: #e13be4;
-        }
         &.star {
             fill: #e6ca2c;
-            animation: rotate 15s linear infinite;
+            animation: rotateRight 15s linear infinite;
         }
+    }
+}
+
+.bonus {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 2px solid #675645;
+    background-color: #e1d798;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    z-index: -15;
+    animation: wiggle 1.5s alternate linear infinite;
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        left: 15%;
+        width: 70%;
+        height: 3px;
+        background-color: #675645;
+    }
+    &::before {
+        top: 10%;
+    }
+    &::after {
+        bottom: 10%;
+    }
+    svg {
+        width: 65%;
+        height: 65%;
     }
 }
 
@@ -66,7 +97,7 @@
     svg {
         width: 80%;
         height: 80%;
-        animation: rotate 5s linear infinite;
+        animation: rotateRight 5s linear infinite;
         path {
             fill: #e1d798;
         }
@@ -116,7 +147,13 @@
     }
 }
 
-@keyframes rotate {
+@keyframes rotateRight {
     0% { transform: rotate(0deg);}
     100% { transform: rotate(360deg);}
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(-7deg);}
+    50% { transform: rotate(0deg);}
+    100% { transform: rotate(7deg);}
 }
