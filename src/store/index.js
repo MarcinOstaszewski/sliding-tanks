@@ -2,7 +2,7 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 import { allActivePlayersPairs } from '../helpers';
 import { playersData } from './playersData';
 import { goalData } from './goalData';
-import { bonusData } from './bonusData';
+import { bonusData, resetBonusValues } from './bonusData';
 import { getRandomPosition, getRandomSpeed } from '../helpers/'
 
 const gameStateSlice = createSlice({
@@ -10,7 +10,7 @@ const gameStateSlice = createSlice({
     initialState: "",
     reducers: {
         changeGameState(_, action) {
-            return action.payload
+            return action.payload;
         }
     }
 });
@@ -65,6 +65,7 @@ export {
     playersData,
     goalData,
     bonusData,
+    resetBonusValues,
     getRandomPosition,
     getRandomSpeed,
 }

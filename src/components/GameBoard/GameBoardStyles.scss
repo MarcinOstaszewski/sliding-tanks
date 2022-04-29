@@ -57,7 +57,7 @@
 .bonus {
     width: 32px;
     height: 32px;
-    border-radius: 8px;
+    border-radius: 25%;
     border: 2px solid #675645;
     background-color: #e1d798;
     position: absolute;
@@ -65,22 +65,22 @@
     align-items: center;
     justify-content: center;
     transform: translate(-50%, -50%);
-    z-index: -15;
+    z-index: -14;
     animation: wiggle 1.5s alternate linear infinite;
-    &::before, &::after {
-        content: '';
-        position: absolute;
-        left: 15%;
-        width: 70%;
-        height: 3px;
-        background-color: #675645;
-    }
-    &::before {
-        top: 10%;
-    }
-    &::after {
-        bottom: 10%;
-    }
+    // &::before, &::after {
+    //     content: '';
+    //     position: absolute;
+    //     left: 15%;
+    //     width: 70%;
+    //     height: 10%;
+    //     background-color: #675645;
+    // }
+    // &::before {
+    //     top: 10%;
+    // }
+    // &::after {
+    //     bottom: 10%;
+    // }
     svg {
         width: 65%;
         height: 65%;
@@ -153,7 +153,7 @@
 }
 
 @keyframes wiggle {
-    0% { transform: rotate(-7deg);}
-    50% { transform: rotate(0deg);}
-    100% { transform: rotate(7deg);}
+    0% { transform: rotate(-7deg) translate(-50%, -50%);}
+    50% { transform: rotate(0deg) translate(-50%, -50%);}
+    100% { transform: rotate(7deg) translate(-50%, -50%);}
 }

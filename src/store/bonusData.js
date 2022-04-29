@@ -1,9 +1,15 @@
-import { consts, getRandomBetween, getRandomPosition } from '../helpers';
+import { getRandomBetween, getRandomPosition } from '../helpers';
 
-export const bonusData = {
-    position: getRandomPosition(),
-    speed: { x: 0, y: getRandomBetween(0, 1) },
-    width: consts.PLAYER_RADIUS * 4,
-    height: consts.PLAYER_RADIUS * 4,
-    type: getRandomBetween(0, 4)
+const bonusTypes = {
+    0: 'mine',
+    1: 'bullet',
+    2: 'missile'
 }
+
+export const resetBonusValues = () => ({
+    position: getRandomPosition(),
+    speed: { x: 0, y: getRandomBetween(1, 2.5) },
+    bonusType: bonusTypes[Math.floor(getRandomBetween(0, Object.keys(bonusTypes).length))]
+});
+
+export const bonusData = resetBonusValues();

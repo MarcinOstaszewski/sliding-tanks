@@ -17,6 +17,7 @@ import {
     addVectors,
     dotProduct
 } from './vectorHelpers';
+import { resetBonusValues } from '../store';
 
 const correctPositionIfOutOfScreen = (posA, posB) => {
     const radius = consts.PLAYER_RADIUS;
@@ -81,7 +82,7 @@ const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings,
         } else {
             setGoalValues({
                 position: getRandomPosition(),
-                speed: getRandomSpeed(),
+                speed: getRandomSpeed(-3, 3, -3, 3),
                 width: goalValues.width > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.width,
                 height: goalValues.height > 4 ? goalValues.width - consts.PLAYER_RADIUS / 10 : goalValues.height,
                 prize: 1,
@@ -91,13 +92,14 @@ const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings,
     return newValues.points;
 }
 
-const checkIfBonusCaught = ({ newValues, bonusValues, setBonusValues, id }) => {
+const checkIfBonusCaught = ({ newValues, bonusValues, setBonusValues }) => {
     const bonusDistance = getDistance(newValues.position, bonusValues.position);
-    if (id === 'player1') {
-        if (bonusDistance < 30) {
-            console.log('CAUGHT');
-        }
+    if (bonusDistance < 30) {
+        newValues.equipment = bonusValues.type;
+        setBonusValues(resetBonusValues());
+        console.log(newValues, bonusValues);
     }
+    return newValues.equipment;
 }
 
 const updatePlayersValues = ({
@@ -119,8 +121,8 @@ const updatePlayersValues = ({
         newValues.speed = updateSpeed(newValues, keys);
         newValues.position = updatePosition(newValues);
         newValues.health = updatePlayersHealth(newValues);
-        newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id })
-        newValues.points = checkIfBonusCaught({ newValues, bonusValues, setBonusValues, id })
+        newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id });
+        newValues.equipment = checkIfBonusCaught({ newValues, bonusValues, setBonusValues });
 
         updatedValues[index] = { id, values: { ...newValues }, keys };
     });
