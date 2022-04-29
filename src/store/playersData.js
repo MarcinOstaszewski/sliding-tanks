@@ -21,6 +21,7 @@ export const playersData = [{
         backgroundColor: 220,
         points: 0,
         health: 100,
+        equipment: ''
     },
     keys: {
         frwd: "KeyW",
@@ -45,6 +46,7 @@ export const playersData = [{
         backgroundColor: 0,
         points: 0,
         health: 100,
+        equipment: ''
     },
     keys: {
         frwd: "BracketLeft",
@@ -69,6 +71,7 @@ export const playersData = [{
         backgroundColor: 120,
         points: 0,
         health: 100,
+        equipment: ''
     },
     keys: {
         frwd: "ArrowUp",
@@ -93,6 +96,7 @@ export const playersData = [{
         backgroundColor: 40,
         points: 0,
         health: 100,
+        equipment: ''
     },
     keys: {
         frwd: "KeyJ",

@@ -9,6 +9,7 @@ import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners, getColorFromValue } from '../../helpers';
 import Borders from './Borders/Borders';
 import Bonus from './Bonus/Bonus';
+import { updateBonusValues } from '../../helpers/bonusHelpers';
 
 const keysPressed = {};
 
@@ -27,6 +28,7 @@ const GameBoard = (props) => {
     };
 
     useInterval(() => {
+        props.setBonusValues(updateBonusValues(props.bonusValues));
         props.setPlayersValues(updatePlayersValues({
             playersValues: props.playersValues,
             goalValues: props.goalValues,
