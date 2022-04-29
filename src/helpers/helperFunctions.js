@@ -31,6 +31,13 @@ const countNewSpeed = ({ angle, speed }, frwd) => {
     };
 }
 
+const addEquipmentToGameBonuses = (values) => {
+    // create a new equipment object of a kind
+    // add new equipment object to one of gameBonuses list
+    values.equipment = '';
+    return values;
+}
+
 export const updateSpeed = (values, keys) => {
     let newSpeed = { ...values.speed };
     if (keysPressed[keys.frwd] && !keysPressed[keys.back]) {
@@ -39,8 +46,9 @@ export const updateSpeed = (values, keys) => {
     if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
         newSpeed = countNewSpeed(values, DECELERATION);
     }
-    if (keysPressed[keys.back] && keysPressed[keys.frwd]) {
-        console.log(values)
+    if (keysPressed[keys.back] && keysPressed[keys.frwd] && values.equipment) {
+        console.log(values.equipment);
+        values = addEquipmentToGameBonuses(values);
     }
 
     [newSpeed, values] = verifyWallsBounce(newSpeed, values);
@@ -127,9 +135,9 @@ const getRandomPosition = () => ({
     y: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5)
 })
 
-const getRandomSpeed = () => ({
-    x: getRandomBetween(-3, 3),
-    y: getRandomBetween(-3, 3),
+const getRandomSpeed = (minX, maxX, minY, maxY) => ({
+    x: getRandomBetween(minX, maxX),
+    y: getRandomBetween(minY, maxY),
 })
 
 export {
