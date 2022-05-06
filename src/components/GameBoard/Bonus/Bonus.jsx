@@ -1,19 +1,8 @@
 import React from 'react';
-import { mine, bullet, missile } from '../../../assets/svg';
+import { bonusIconsList } from '../../../helpers/bonusHelpers';
 
 const Bonus = (props) => {
-    let bonusType = '';
-
-    switch (props.bonusValues.bonusType) {
-        case 'bullet':
-            bonusType = bullet;
-            break;
-        case 'missile':
-            bonusType = missile;
-            break;
-        default:
-            bonusType = mine;
-    }
+    let bonusType = bonusIconsList[props.bonusValues.bonusType];
 
     return <div
         className="bonus"
