@@ -1,6 +1,7 @@
 import { addVectors } from './vectorHelpers';
 import { consts } from './consts';
 import { resetBonusValues } from '../store/';
+import { mine, bullet, missile } from '../assets/svg';
 
 export const updateBonusValues = (bonusValues) => {
     bonusValues.position = addVectors(
@@ -14,3 +15,9 @@ export const updateBonusValues = (bonusValues) => {
 
     return bonusValues;
 };
+
+export const bonusIconsList = {
+    bullet: bullet,
+    missile: missile,
+    mine: mine
+}
