@@ -95,9 +95,8 @@ const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings,
 const checkIfBonusCaught = ({ newValues, bonusValues, setBonusValues }) => {
     const bonusDistance = getDistance(newValues.position, bonusValues.position);
     if (bonusDistance < 30) {
-        newValues.equipment = bonusValues.type;
         setBonusValues(resetBonusValues());
-        console.log(newValues, bonusValues);
+        return bonusValues.bonusType;
     }
     return newValues.equipment;
 }
