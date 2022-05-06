@@ -130,10 +130,22 @@ const getColorFromValue = (value) => {
 
 const getRandomBetween = (min, max) => Math.random() * (max - min) + min / 2;
 
-const getRandomPosition = () => ({
-    x: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_WIDTH - consts.PLAYER_RADIUS * 5),
-    y: getRandomBetween(consts.PLAYER_RADIUS * 5, consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5)
-})
+const getRandomPosition = (screenPart) => {
+    let xMin = consts.PLAYER_RADIUS * 5;
+    let xMax = consts.WINDOW_WIDTH - consts.PLAYER_RADIUS * 5;
+    let yMin = consts.PLAYER_RADIUS * 5;
+    let yMax = consts.WINDOW_HEIGHT - consts.PLAYER_RADIUS * 5;
+    if (screenPart) {
+        if (screenPart.includes('upper')) yMax /= 2;
+        if (screenPart.includes('lower')) yMin *= 2;
+        if (screenPart.includes('left')) xMax /= 2;
+        if (screenPart.includes('right')) xMin *= 2;
+    }
+    return {
+        x: getRandomBetween(xMin, xMax),
+        y: getRandomBetween(yMin, yMax)
+    }
+}
 
 const getRandomSpeed = (minX, maxX, minY, maxY) => ({
     x: getRandomBetween(minX, maxX),
