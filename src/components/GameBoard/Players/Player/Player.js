@@ -1,6 +1,9 @@
 import { consts, getColorFromValue } from '../../../../helpers';
+import { bonusIconsList } from '../../../../helpers/bonusHelpers';
 
 const Player = (props) => {
+    let bonusType = bonusIconsList[props.values.equipment];
+
     const positionStyles = {
         transform: `translate(-${consts.PLAYER_RADIUS}px, -${consts.PLAYER_RADIUS}px)`,
         left: `${props.values.position.x}px`,
@@ -21,6 +24,9 @@ const Player = (props) => {
         <div className="position" id={props.id} style={positionStyles}>
             <div className="player" style={playerStyles}></div>
             <div className="health" style={healthStyles}></div>
+            <div className="bonus-type">
+                {bonusType}
+            </div>
         </div>
     );
 }
