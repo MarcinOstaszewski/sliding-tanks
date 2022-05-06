@@ -7,7 +7,7 @@ const bonusTypes = {
 }
 
 export const resetBonusValues = () => ({
-    position: getRandomPosition(),
+    position: getRandomPosition('upper'),
     speed: { x: 0, y: getRandomBetween(1, 2.5) },
     bonusType: bonusTypes[Math.floor(getRandomBetween(0, Object.keys(bonusTypes).length))]
 });
