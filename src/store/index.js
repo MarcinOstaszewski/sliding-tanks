@@ -4,16 +4,7 @@ import { playersData } from './playersData';
 import { goalData } from './goalData';
 import { bonusData, resetBonusValues } from './bonusData';
 import { getRandomPosition, getRandomSpeed } from '../helpers/'
-
-const gameStateSlice = createSlice({
-    name: "gameState",
-    initialState: "",
-    reducers: {
-        changeGameState(_, action) {
-            return action.payload;
-        }
-    }
-});
+import { gameStateActions, gameStateReducer } from './gameStateSlice';
 
 let winningScoreFromStorage;
 let initialPlayersListFromStorage;
@@ -62,13 +53,13 @@ const store = configureStore({
     reducer: {
         activePlayers: activePlayersSlice.reducer,
         gameSettings: gameSettingsSlice.reducer,
-        gameState: gameStateSlice.reducer
+        gameState: gameStateReducer
     },
 });
 
 export const gameSettingsActions = gameSettingsSlice.actions;
 export const activePlayersActions = activePlayersSlice.actions;
-export const gameStateSliceActions = gameStateSlice.actions;
+export const gameStateSliceActions = gameStateActions;
 export {
     playersData,
     goalData,
