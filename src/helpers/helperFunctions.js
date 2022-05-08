@@ -152,6 +152,12 @@ const getRandomSpeed = (minX, maxX, minY, maxY) => ({
     y: getRandomBetween(minY, maxY),
 })
 
+const setStorageValue = (name, value) => {
+    if (window.localStorage) {
+        window.localStorage.setItem(name, value);
+    }
+}
+
 export {
     consts,
     validateRotationSpeed,
@@ -161,5 +167,6 @@ export {
     getColorFromValue,
     getRandomBetween,
     getRandomPosition,
-    getRandomSpeed
+    getRandomSpeed,
+    setStorageValue
 }
