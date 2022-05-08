@@ -15,8 +15,16 @@ const gameStateSlice = createSlice({
     }
 });
 
+let winningScoreFromStorage;
+let initialPlayersListFromStorage;
+
+if (window.localStorage) {
+    winningScoreFromStorage = window.localStorage.getItem('winningScore');
+    initialPlayersListFromStorage = JSON.parse(window.localStorage.getItem('initialPlayersList'));
+}
+
 const initialGameSettings = {
-    winningScore: 25
+    winningScore: winningScoreFromStorage || 25
 }
 
 const gameSettingsSlice = createSlice({
@@ -27,9 +35,9 @@ const gameSettingsSlice = createSlice({
             return { winningScore: action.payload };
         }
     }
-})
+});
 
-const initialPlayersList = {
+const initialPlayersList = initialPlayersListFromStorage || {
     0: true,
     1: true,
     2: true,

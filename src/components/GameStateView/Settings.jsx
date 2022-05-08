@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { activePlayersActions, gameSettingsActions } from '../../store';
 import { useSelector, useDispatch } from 'react-redux';
 import StyledSettings from './Settings.Styled.jsx';
-import { getColorFromValue } from '../../helpers';
+import { getColorFromValue, setStorageValue } from '../../helpers';
 
 export default function Settings(props) {
     const [activeKeysId, setActiveKeysId] = useState(undefined);
@@ -15,6 +15,7 @@ export default function Settings(props) {
             ...activePlayers,
             [playerId]: !activePlayers[playerId]
         }
+        setStorageValue('initialPlayersList', JSON.stringify(newPlayersList))
         dispatch(activePlayersActions.togglePlayer(newPlayersList));
     }
 
@@ -52,7 +53,7 @@ export default function Settings(props) {
                 >
                     Player {parseInt(id) + 1}
                     <div className="player-colour"
-                        style={{ backgroundColor: getColorFromValue(props.playersValues[id].values.backgroundColor) }}>
+                        style={{ backgroundColor: getColorFromValue(props.playersValues[id].backgroundColor) }}>
                     </div>
                 </div>
                 <div className={"player-keys" + (activeKeysId === id ? " active" : "")}
@@ -75,6 +76,7 @@ export default function Settings(props) {
     }
 
     const changeWinningScore = (e) => {
+        setStorageValue('winningScore', e.target.value);
         dispatch(gameSettingsActions.changeGameSettings(e.target.value));
     }
 

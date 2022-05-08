@@ -9,7 +9,8 @@ import {
     getColorFromValue,
     getRandomBetween,
     getRandomPosition,
-    getRandomSpeed
+    getRandomSpeed,
+    setStorageValue
 } from './helperFunctions';
 
 import {
@@ -28,5 +29,6 @@ export {
     getColorFromValue,
     getRandomBetween,
     getRandomPosition,
-    getRandomSpeed
+    getRandomSpeed,
+    setStorageValue
 }
