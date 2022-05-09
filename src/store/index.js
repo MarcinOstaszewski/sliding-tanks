@@ -5,61 +5,17 @@ import { goalData } from './goalData';
 import { bonusData, resetBonusValues } from './bonusData';
 import { getRandomPosition, getRandomSpeed } from '../helpers/'
 import { gameStateActions, gameStateReducer } from './gameStateSlice';
-
-let winningScoreFromStorage;
-let initialPlayersListFromStorage;
-
-if (window.localStorage) {
-    winningScoreFromStorage = window.localStorage.getItem('winningScore');
-    initialPlayersListFromStorage = JSON.parse(window.localStorage.getItem('initialPlayersList'));
-}
-
-const initialGameSettings = {
-    winningScore: winningScoreFromStorage || 25
-}
-
-const gameSettingsSlice = createSlice({
-    name: "gameSettings",
-    initialState: initialGameSettings,
-    reducers: {
-        changeGameSettings(_, action) {
-            return { winningScore: action.payload };
-        }
-    }
-});
-
-const initialPlayersList = initialPlayersListFromStorage || {
-    0: true,
-    1: true,
-    2: true,
-    3: true
-}
-
-const activePlayersSlice = createSlice({
-    name: "activePlayers",
-    initialState: {
-        list: initialPlayersList,
-        pairs: allActivePlayersPairs(initialPlayersList)
-    },
-    reducers: {
-        togglePlayer(state, action) {
-            state.list = action.payload;
-            state.pairs = allActivePlayersPairs(action.payload);
-        },
-    },
-});
+import { gameSettingsActions, gameSettingsReducer } from './gameSettingsSlice';
+import { activePlayersActions, activePlayersReducer } from './activePlayersSlice';
 
 const store = configureStore({
     reducer: {
-        activePlayers: activePlayersSlice.reducer,
-        gameSettings: gameSettingsSlice.reducer,
+        activePlayers: activePlayersReducer,
+        gameSettings: gameSettingsReducer,
         gameState: gameStateReducer
     },
 });
 
-export const gameSettingsActions = gameSettingsSlice.actions;
-export const activePlayersActions = activePlayersSlice.actions;
-export const gameStateSliceActions = gameStateActions;
 export {
     playersData,
     goalData,
@@ -67,6 +23,9 @@ export {
     resetBonusValues,
     getRandomPosition,
     getRandomSpeed,
+    gameSettingsActions,
+    gameStateActions,
+    activePlayersActions
 }
 
 export default store;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { playersData, goalData, bonusData, gameStateSliceActions } from '../../store'
+import { playersData, goalData, bonusData, gameStateActions } from '../../store'
 import { useSelector, useDispatch } from 'react-redux';
 import { Welcome, Settings, GameOver } from './';
 import GameBoard from '../GameBoard/GameBoard';
@@ -51,7 +51,7 @@ const GameStateView = () => {
     }
 
     const changeGameState = (type) => {
-        dispatch(gameStateSliceActions.changeGameState(type));
+        dispatch(gameStateActions.changeGameState(type));
     }
 
     return (
