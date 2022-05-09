@@ -1,5 +1,4 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-import { allActivePlayersPairs } from '../helpers';
 import { playersData } from './playersData';
 import { goalData } from './goalData';
 import { bonusData, resetBonusValues } from './bonusData';
