@@ -1,23 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialGameBonuses = {
+const initialGameEquipment = {
     mines: [],
     missiles: [],
     rockets: []
 }
 
-const gameBonuses = createSlice({
-    name: "gameBonuses",
-    initialState: initialGameBonuses,
+const gameEquipment = createSlice({
+    name: "gameEquipment",
+    initialState: initialGameEquipment,
     reducers: {
-        pushNewGameBonus(_, action) {
+        addNewGameEquipment(state, action) {
+            switch (action.gameEquipmentType) {
+                case mine:
+                    state[action.gameEquipmentType].push(action.gameEquipmentValues)
+                    break;
+                default:
+                    break;
+            }
             return action.payload; // ???
         }
     }
 });
 
-const gameBonusesReducer = gameBonuses.reducer;
+const gameEquipmentReducer = gameEquipment.reducer;
 
-export { gameBonusesReducer }
+export { gameEquipmentReducer }
 
-export default gameBonuses;
+export default gameEquipment;
