@@ -9,7 +9,7 @@
         &:after {
             content: "";
             position: absolute;
-            background-color: rgba(256, 256, 256, .7);
+            background-color: #fff;
         }
         &:before {
             top: 10px;
@@ -31,6 +31,9 @@
         width: 20px;
         height: 4px;
         opacity: .9;
+        &.is-repaired {
+            animation: isRepaired .5s alternate infinite;
+        }
     }
     .bonus-type {
         position: absolute;
@@ -38,7 +41,7 @@
         width: 12px;
         height: 12px;
         opacity: .9;
-        left: 24px;
+        left: 25px;
         svg {
             width: 12px;
             height: 12px;
@@ -49,19 +52,18 @@
 .goal {
     border-radius: 50%;
     position: absolute;
-    border: 2px solid #4d784e;
-    background-color: #e1d798;
+    border: 2px solid #e7d03b;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: -15;
     transform: translate(-50%, -50%);
     svg {
-        width: 75%;
-        height: 75%;
+        width: 97%;
+        height: 97%;
+        padding-bottom: 4px;
         &.star {
-            fill: #4d784e;
-            // animation: rotateRight 15s linear infinite;
+            fill: #e7d03b;
         }
     }
 }
@@ -71,7 +73,6 @@
     height: 32px;
     border-radius: 25%;
     border: 2px solid #675645;
-    background-color: #e1d798;
     position: absolute;
     display: flex;
     align-items: center;
@@ -98,7 +99,7 @@
         height: 80%;
         animation: rotateRight 5s linear infinite;
         path {
-            fill: #e1d798;
+            fill: #4d784e;
         }
     }
 }
@@ -155,4 +156,9 @@
     0% { transform: rotate(-7deg) translate(-50%, -50%);}
     50% { transform: rotate(0deg) translate(-50%, -50%);}
     100% { transform: rotate(7deg) translate(-50%, -50%);}
+}
+
+@keyframes isRepaired {
+    0% { height: 4px; top: -13px; }
+    100% { height: 9px; top: -16px; }
 }
