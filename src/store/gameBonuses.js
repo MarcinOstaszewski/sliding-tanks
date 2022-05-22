@@ -24,7 +24,11 @@ const gameEquipment = createSlice({
 });
 
 const gameEquipmentReducer = gameEquipment.reducer;
+const gameEquipmentActions = gameEquipment.actions;
 
-export { gameEquipmentReducer }
+export {
+    gameEquipmentReducer,
+    gameEquipmentActions
+}
 
 export default gameEquipment;
