@@ -6,7 +6,7 @@ import { getRandomPosition, getRandomSpeed } from '../helpers/'
 import { gameStateActions, gameStateReducer } from './gameStateSlice';
 import { gameSettingsActions, gameSettingsReducer } from './gameSettingsSlice';
 import { activePlayersActions, activePlayersReducer } from './activePlayersSlice';
-import { gameEquipmentActions, gameEquipmentReducer } from './gameEquipment';
+import { gameEquipmentActions, gameEquipmentReducer } from './gameEquipmentSlice';
 
 const store = configureStore({
     reducer: {
