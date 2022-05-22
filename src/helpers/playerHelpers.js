@@ -60,11 +60,16 @@ const eliminateCollisionDepth = (posA, posB, normalVector, collisionDepth) => {
 
 const updatePlayersHealth = (vals) => {
     const distanceToWorkshop = getDistance(vals.position, workshpCoords);
+    vals.isRepaired = false;
     if (distanceToWorkshop <= workshopAffectingDistance) {
-        vals.health += 1 - distanceToWorkshop / workshopAffectingDistance; //(5 / 30);
-        if (vals.health > 100) vals.health = 100;
+        vals.health += 1 - distanceToWorkshop / workshopAffectingDistance;
+        if (vals.health > 100) {
+            vals.health = 100
+        } else {
+            vals.isRepaired = true;
+        }
     }
-    return vals.health;
+    return [vals.health, vals.isRepaired];
 }
 
 const checkIfGoalCaught = ({ newValues, goalValues, setGoalValues, gameSettings, id }) => {
@@ -119,7 +124,7 @@ const updatePlayersValues = ({
         newValues.angle += newValues.rotationSpeed;
         newValues.speed = updateSpeed(newValues, keys);
         newValues.position = updatePosition(newValues);
-        newValues.health = updatePlayersHealth(newValues);
+        [newValues.health, newValues.isRepaired] = updatePlayersHealth(newValues);
         newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id });
         newValues.equipment = checkIfBonusCaught({ newValues, bonusValues, setBonusValues });
 

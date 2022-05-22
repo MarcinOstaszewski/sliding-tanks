@@ -3,6 +3,7 @@ import { bonusIconsList } from '../../../../helpers/bonusHelpers';
 
 const Player = (props) => {
     let bonusType = bonusIconsList[props.values.equipment];
+    let isRepaired = props.values.isRepaired ? ' is-repaired' : '';
 
     const positionStyles = {
         transform: `translate(-${consts.PLAYER_RADIUS}px, -${consts.PLAYER_RADIUS}px)`,
@@ -23,7 +24,7 @@ const Player = (props) => {
     return (
         <div className="position" id={props.id} style={positionStyles}>
             <div className="player" style={playerStyles}></div>
-            <div className="health" style={healthStyles}></div>
+            <div className={`health${isRepaired}`} style={healthStyles}></div>
             <div className="bonus-type">
                 {bonusType}
             </div>

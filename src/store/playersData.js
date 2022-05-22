@@ -21,6 +21,7 @@ export const playersData = [{
         backgroundColor: 220,
         points: 0,
         health: 100,
+        isRepaired: false,
         equipment: ''
     },
     keys: {
@@ -46,6 +47,7 @@ export const playersData = [{
         backgroundColor: 0,
         points: 0,
         health: 100,
+        isRepaired: false,
         equipment: ''
     },
     keys: {
@@ -71,6 +73,7 @@ export const playersData = [{
         backgroundColor: 120,
         points: 0,
         health: 100,
+        isRepaired: false,
         equipment: ''
     },
     keys: {
@@ -96,6 +99,7 @@ export const playersData = [{
         backgroundColor: 40,
         points: 0,
         health: 100,
+        isRepaired: false,
         equipment: ''
     },
     keys: {
