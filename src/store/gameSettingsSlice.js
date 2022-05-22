@@ -23,7 +23,6 @@ const gameSettingsActions = gameSettingsSlice.actions;
 const gameSettingsReducer = gameSettingsSlice.reducer;
 
 export {
-    gameSettingsSlice,
     gameSettingsReducer,
     gameSettingsActions
 }
