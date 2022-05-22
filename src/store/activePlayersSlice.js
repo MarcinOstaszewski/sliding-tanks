@@ -32,7 +32,6 @@ const activePlayersActions = activePlayersSlice.actions;
 const activePlayersReducer = activePlayersSlice.reducer;
 
 export {
-    activePlayersSlice,
     activePlayersActions,
     activePlayersReducer
 }
