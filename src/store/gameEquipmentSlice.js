@@ -6,14 +6,14 @@ const initialGameEquipment = {
     rockets: []
 }
 
-const gameEquipment = createSlice({
+const gameEquipmentSlice = createSlice({
     name: "gameEquipment",
     initialState: initialGameEquipment,
     reducers: {
         addNewGameEquipment(state, action) {
             switch (action.gameEquipmentType) {
-                case mine:
-                    state[action.gameEquipmentType].push(action.gameEquipmentValues)
+                case 'mine':
+                    state[action.gameEquipmentType].push(action.gameEquipmentValues);
                     break;
                 default:
                     break;
@@ -23,12 +23,10 @@ const gameEquipment = createSlice({
     }
 });
 
-const gameEquipmentReducer = gameEquipment.reducer;
-const gameEquipmentActions = gameEquipment.actions;
+const gameEquipmentReducer = gameEquipmentSlice.reducer;
+const gameEquipmentActions = gameEquipmentSlice.actions;
 
 export {
     gameEquipmentReducer,
     gameEquipmentActions
 }
-
-export default gameEquipment;
