@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-    // coloursPalette,
+    coloursPalette,
     basicStyles,
     headers
 } from '../../helpers/stylesCommons';
@@ -8,9 +8,19 @@ import {
 const WelcomeStyled = styled.div`
     ${basicStyles}
     align-items: center;
-    h1 {
+    h1.main-title {
         ${headers.h1}
+        margin: 0px 0px 32px;
+        font-size: 120px;
+        line-height: 96px;
+        font-family: 'Titan One', cursive;
+        text-shadow: 3px 4px 2px black;
+        text-align: center;
+        span {
+            color: ${coloursPalette.primary}
+        }
     }
+
     h2 {
         ${headers.h2}
     }

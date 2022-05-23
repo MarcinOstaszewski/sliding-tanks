@@ -1,20 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
 .App {
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
 html {
     box-sizing: border-box;
     font-size: 20px;
     position: relative;
 }
-body, h1, h2, h3, p, ol, ul {
+
+body,
+h1,
+h2,
+h3,
+p,
+ol,
+ul {
     font-weight: normal;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
-ol, ul {
+
+ol,
+ul {
     list-style: none;
 }
