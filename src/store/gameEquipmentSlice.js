@@ -11,14 +11,18 @@ const gameEquipmentSlice = createSlice({
     initialState: initialGameEquipment,
     reducers: {
         addNewGameEquipment(state, action) {
-            switch (action.gameEquipmentType) {
-                case 'mine':
-                    state[action.gameEquipmentType].push(action.gameEquipmentValues);
-                    break;
-                default:
-                    break;
-            }
-            return action.payload; // ???
+            action.payload.forEach(eq => {
+                switch (eq.type) {
+                    case 'mine':
+                        state.mines.push(eq.position);
+                        if (state.mines.length > 8) {
+                            state.mines.shift();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            })
         }
     }
 });

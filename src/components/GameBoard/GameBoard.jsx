@@ -1,15 +1,17 @@
 import './GameBoardStyles.scss';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Players from './Players/Players';
 import Goals from './Goals/Goals';
 import Score from './Score/Score';
 import Workshop from './Workshop/Workshop';
+import GameEquipment from './GameEquipment/GameEquipment';
 import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners, getColorFromValue } from '../../helpers';
 import Borders from './Borders/Borders';
 import Bonus from './Bonus/Bonus';
 import { updateBonusValues } from '../../helpers/bonusHelpers';
+import { gameEquipmentActions } from '../../store';
 
 const keysPressed = {};
 
@@ -17,6 +19,8 @@ const GameBoard = (props) => {
     let gameWon;
     const [keysListenersReady, setKeysListenersReady] = useState(false);
     const gameSettings = useSelector(state => state.gameSettings);
+    const onBoardEquipment = useSelector(state => state.gameEquipment);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         return unsetKeyListeners
@@ -27,17 +31,35 @@ const GameBoard = (props) => {
         setKeysListenersReady(true);
     };
 
+    const checkEquipmentToAdd = (values, equipmentToAdd) => {
+        values = values.map(player => {
+            if (player.values.equipmentToAdd) {
+                equipmentToAdd.push(player.values.equipmentToAdd);
+                delete player.values.equipmentToAdd;
+            }
+            return player;
+        });
+        return [values, equipmentToAdd];
+    }
+
     useInterval(() => {
+        let equipmentToAdd = [];
         props.setBonusValues(updateBonusValues(props.bonusValues));
-        props.setPlayersValues(updatePlayersValues({
+        let updatedPlayersValues = updatePlayersValues({
             playersValues: props.playersValues,
             goalValues: props.goalValues,
             setGoalValues: props.setGoalValues,
             bonusValues: props.bonusValues,
             setBonusValues: props.setBonusValues,
             activePlayersPairs: props.activePlayersPairs,
-            gameSettings: gameSettings
-        }));
+            gameSettings
+        });
+        [updatedPlayersValues, equipmentToAdd] = checkEquipmentToAdd(updatedPlayersValues, equipmentToAdd);
+        if (equipmentToAdd.length) {
+            dispatch(gameEquipmentActions.addNewGameEquipment(equipmentToAdd));
+        }
+
+        props.setPlayersValues(updatedPlayersValues);
     }, consts.FRAME_INTERVAL);
 
     if (consts.FRAME_INTERVAL === null) {
@@ -63,13 +85,8 @@ const GameBoard = (props) => {
             <Score playersValues={props.playersValues} />
             <Goals goalValues={props.goalValues} />
             <Bonus bonusValues={props.bonusValues} />
-            <Players
-                playersValues={props.playersValues}
-                setPlayersValues={props.setPlayersValues}
-                activePlayers={props.activePlayers}
-                activePlayersPairs={props.activePlayersPairs}
-                setGoalValues={props.setGoalValues}
-            />
+            <Players playersValues={props.playersValues} />
+            <GameEquipment onBoardEquipment={onBoardEquipment} />
             <Workshop />
             {gameWon}
         </div>

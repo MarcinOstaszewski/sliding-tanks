@@ -1,7 +1,7 @@
 import {
     consts,
     validateRotationSpeed,
-    updateSpeed,
+    checkFrwdBackKeysPressed,
     updatePosition,
     workshpCoords,
     workshopAffectingDistance
@@ -122,7 +122,7 @@ const updatePlayersValues = ({
         const newValues = { ...values };
         newValues.rotationSpeed = validateRotationSpeed(newValues, keys);
         newValues.angle += newValues.rotationSpeed;
-        newValues.speed = updateSpeed(newValues, keys);
+        [newValues.speed, newValues.equipment] = checkFrwdBackKeysPressed({ newValues, keys });
         newValues.position = updatePosition(newValues);
         [newValues.health, newValues.isRepaired] = updatePlayersHealth(newValues);
         newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id });

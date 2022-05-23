@@ -1,5 +1,6 @@
 import { consts } from './consts';
 import { keysPressed } from '../components/GameBoard/GameBoard';
+import { addVectors, multiplyVectors } from './vectorHelpers';
 
 const { ROTATION_DELTA, ROTATION_FRICTION, ROTATION_DELTA_MIN, SPEED_DELTA, DEG_TO_RAD,
     PLAYER_RADIUS, WINDOW_HEIGHT, WINDOW_WIDTH, BOUNCE_FACTOR, SPEED_MIN, SPEED_MAX,
@@ -31,32 +32,40 @@ const countNewSpeed = ({ angle, speed }, frwd) => {
     };
 }
 
-const addEquipmentToGameBonuses = (values) => {
-    // create a new equipment object of a kind
-    // add new equipment object to one of gameBonuses list
+const setNewGameEquipment = (values) => {
+    const toPlayerCenterVector = {
+        x: -consts.PLAYER_RADIUS,
+        y: -consts.PLAYER_RADIUS
+    };
+    const playerCSSPosition = addVectors(values.position, toPlayerCenterVector);
+    const playerSpeedVector = multiplyVectors(-5, values.speed);
+
+    values.equipmentToAdd = {
+        type: values.equipment,
+        position: addVectors(playerCSSPosition, playerSpeedVector)
+    }
     values.equipment = '';
     return values;
 }
 
-export const updateSpeed = (values, keys) => {
-    let newSpeed = { ...values.speed };
+export const checkFrwdBackKeysPressed = ({ newValues, keys }) => {
+    let newSpeed = { ...newValues.speed };
     if (keysPressed[keys.frwd] && !keysPressed[keys.back]) {
-        newSpeed = countNewSpeed(values, ACCELERATION);
+        newSpeed = countNewSpeed(newValues, ACCELERATION);
     }
     if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
-        newSpeed = countNewSpeed(values, DECELERATION);
+        newSpeed = countNewSpeed(newValues, DECELERATION);
     }
-    if (keysPressed[keys.back] && keysPressed[keys.frwd] && values.equipment) {
-        console.log(values.equipment);
-        values = addEquipmentToGameBonuses(values);
+    if (keysPressed[keys.back] && keysPressed[keys.frwd] && newValues.equipment) {
+        newValues = setNewGameEquipment(newValues);
     }
 
-    [newSpeed, values] = verifyWallsBounce(newSpeed, values);
-    newSpeed = {
+    [newSpeed, newValues] = verifyWallsBounce(newSpeed, newValues);
+    newValues.speed = {
         x: validateSpeed(newSpeed.x),
         y: validateSpeed(newSpeed.y)
     };
-    return newSpeed;
+    return [newValues.speed, newValues.equipment];
 }
 
 const validateSpeed = speed => {

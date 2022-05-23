@@ -1,7 +1,7 @@
 import {
     consts,
     validateRotationSpeed,
-    updateSpeed,
+    checkFrwdBackKeysPressed,
     updatePosition,
     setKeyListeners,
     unsetKeyListeners,
@@ -20,7 +20,7 @@ import {
 export {
     consts,
     validateRotationSpeed,
-    updateSpeed,
+    checkFrwdBackKeysPressed,
     updatePosition,
     setKeyListeners,
     unsetKeyListeners,
