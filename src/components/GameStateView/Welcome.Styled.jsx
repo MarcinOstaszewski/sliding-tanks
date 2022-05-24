@@ -13,11 +13,10 @@ const WelcomeStyled = styled.div`
         margin: 0px 0px 32px;
         font-size: 120px;
         line-height: 96px;
-        font-family: 'Titan One', cursive;
         text-shadow: 3px 4px 2px black;
         text-align: center;
-        span {
-            color: ${coloursPalette.primary}
+        span:nth-of-type(2) {
+            color: ${coloursPalette.secondary}
         }
     }
 
@@ -28,6 +27,7 @@ const WelcomeStyled = styled.div`
         padding: 3px 0;
     }
     ul {
+        font-family: 'Titan One', cursive;
         list-style: disc;
         display: flex;
         flex-direction: column;

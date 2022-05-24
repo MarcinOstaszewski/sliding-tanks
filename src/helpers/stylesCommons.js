@@ -33,8 +33,10 @@ const headers = {
         font-weight: bold;
         margin: 12px 48px;
         padding: 4px 0;
-        color: ${coloursPalette.secondary};
+        color: ${coloursPalette.primary};
         text-transform: uppercase;
+        font-family: 'Titan One', cursive;
+        text-shadow: 2px 2px 0px black;
     `,
     h2: `
         font-size: 20px;

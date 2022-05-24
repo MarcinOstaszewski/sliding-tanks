@@ -5,7 +5,7 @@ export default function Welcome() {
     return (
         <WelcomeStyled>
             <p><strong>Welcome to</strong></p>
-            <h1 className="main-title"><span>Sliding</span><br />Tanks</h1>
+            <h1 className="main-title"><span>Sliding</span><br /><span>Tanks</span></h1>
 
             <p>You can check / change game properties in <strong>Settings</strong></p>
             <p>Then you can <strong>Start</strong> and <strong>Pause</strong> the game</p>
