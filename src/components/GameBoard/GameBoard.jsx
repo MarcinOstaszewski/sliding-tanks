@@ -44,19 +44,27 @@ const GameBoard = (props) => {
 
     useInterval(() => {
         let equipmentToAdd = [];
+        let minesToRemove = {};
+
         props.setBonusValues(updateBonusValues(props.bonusValues));
-        let updatedPlayersValues = updatePlayersValues({
+        let updatedPlayersValues;
+        [updatedPlayersValues, minesToRemove] = updatePlayersValues({
             playersValues: props.playersValues,
             goalValues: props.goalValues,
             setGoalValues: props.setGoalValues,
             bonusValues: props.bonusValues,
             setBonusValues: props.setBonusValues,
             activePlayersPairs: props.activePlayersPairs,
-            gameSettings
+            gameSettings,
+            onBoardEquipment,
+            minesToRemove
         });
         [updatedPlayersValues, equipmentToAdd] = checkEquipmentToAdd(updatedPlayersValues, equipmentToAdd);
         if (equipmentToAdd.length) {
             dispatch(gameEquipmentActions.addNewGameEquipment(equipmentToAdd));
+        }
+        if (Object.keys(minesToRemove).length > 0) {
+            dispatch(gameEquipmentActions.removeMinesFromBoard(Object.keys(minesToRemove)));
         }
 
         props.setPlayersValues(updatedPlayersValues);

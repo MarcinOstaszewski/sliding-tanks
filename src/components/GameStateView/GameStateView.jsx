@@ -27,9 +27,10 @@ const GameStateView = () => {
             );
             break;
         case 'GAME_ON':
-            const activePlayersValues = playersValues.map(
-                (_, index) => activePlayersList[index] ? playersValues[index] : ''
-            );
+            let activePlayersValues = playersValues.map((values, index) => {
+                values.active = activePlayersList[index];
+                return values;
+            });
             gameStateComponent = (
                 <GameBoard
                     playersValues={activePlayersValues}

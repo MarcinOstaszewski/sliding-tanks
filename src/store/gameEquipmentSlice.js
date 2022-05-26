@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialGameEquipment = {
     mines: [],
-    missiles: [],
-    rockets: []
+    // missiles: [],
+    // rockets: []
 }
 
 const gameEquipmentSlice = createSlice({
@@ -23,6 +23,15 @@ const gameEquipmentSlice = createSlice({
                         break;
                 }
             })
+        },
+        removeMinesFromBoard(state, action) {
+            action.payload
+                .map(i => parseInt(i))
+                .sort((a, b) => b - a)
+                .forEach(i => {
+                    state.mines.splice(i, 1);
+                });
+            return state;
         }
     }
 });

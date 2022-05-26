@@ -106,6 +106,26 @@ const checkIfBonusCaught = ({ newValues, bonusValues, setBonusValues }) => {
     return newValues.equipment;
 }
 
+const checkCollisionWithMines = (newValues, onBoardEquipment, minesToRemove) => {
+    let health = newValues.health;
+    const mines = onBoardEquipment.mines;
+    if (mines.length > 0) {
+        const collisionsCount = [];
+        mines.forEach((mine, index) => {
+            const mineDistance = getDistance(newValues.position, mine);
+            if (mineDistance < consts.PLAYER_RADIUS * 2) {
+                collisionsCount.push({ [index]: mine });
+                minesToRemove[index] = mine;
+            }
+        });
+        if (collisionsCount.length > 0) {
+            health -= consts.MINE_COLLISION_DAMAGE * collisionsCount.length;
+        }
+    }
+
+    return [health, minesToRemove];
+}
+
 const updatePlayersValues = ({
     playersValues,
     goalValues,
@@ -113,22 +133,28 @@ const updatePlayersValues = ({
     bonusValues,
     setBonusValues,
     activePlayersPairs,
-    gameSettings
+    gameSettings,
+    onBoardEquipment,
+    minesToRemove
 }) => {
-    let updatedValues = [];
+    const updatedValues = [];
 
-    playersValues.forEach(({ id, values, keys }, index) => {
-        if (!id) return;
-        const newValues = { ...values };
-        newValues.rotationSpeed = validateRotationSpeed(newValues, keys);
-        newValues.angle += newValues.rotationSpeed;
-        [newValues.speed, newValues.equipment] = checkFrwdBackKeysPressed({ newValues, keys });
-        newValues.position = updatePosition(newValues);
-        [newValues.health, newValues.isRepaired] = updatePlayersHealth(newValues);
-        newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id });
-        newValues.equipment = checkIfBonusCaught({ newValues, bonusValues, setBonusValues });
+    playersValues.forEach(({ id, active, values, keys }, index) => {
+        if (!active) {
+            updatedValues[index] = { id, active, values, keys };
+        } else {
+            const newValues = { ...values };
+            newValues.rotationSpeed = validateRotationSpeed(newValues, keys);
+            newValues.angle += newValues.rotationSpeed;
+            [newValues.speed, newValues.equipment] = checkFrwdBackKeysPressed({ newValues, keys });
+            newValues.position = updatePosition(newValues);
+            [newValues.health, newValues.isRepaired] = updatePlayersHealth(newValues);
+            newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id });
+            newValues.equipment = checkIfBonusCaught({ newValues, bonusValues, setBonusValues });
+            [newValues.health, minesToRemove] = checkCollisionWithMines(newValues, onBoardEquipment, minesToRemove);
 
-        updatedValues[index] = { id, values: { ...newValues }, keys };
+            updatedValues[index] = { id, active, values: { ...newValues }, keys };
+        };
     });
 
     activePlayersPairs.forEach(([a, b]) => {
@@ -176,7 +202,7 @@ const updatePlayersValues = ({
         }
     });
 
-    return updatedValues;
+    return [updatedValues, minesToRemove];
 }
 
 export { updatePlayersValues };
