@@ -18,7 +18,8 @@ const consts = {
     WINDOW_HEIGHT: window.innerHeight,
     WINDOW_WIDTH: window.innerWidth,
     BOUNCE_FACTOR: -0.33,
-    WORKSHOP_SCALE: 4
+    WORKSHOP_SCALE: 4,
+    MINE_COLLISION_DAMAGE: 25
 }
 
 export { consts };
