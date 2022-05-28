@@ -5,7 +5,9 @@ const GameEquipment = (props) => {
         <div
             key={index}
             className="mine"
-            style={{ left: position.x, top: position.y }}>
+            style={{
+                left: position.x, top: position.y
+            }}>
             {mine}
         </div>
     ));
