@@ -8,11 +8,13 @@ const { ROTATION_DELTA, ROTATION_FRICTION, ROTATION_DELTA_MIN, SPEED_DELTA, DEG_
 
 const validateRotationSpeed = (values, keys) => {
     let rotationSpeed = values.rotationSpeed;
-    if (keysPressed[keys.left]) {
-        rotationSpeed = values.rotationSpeed - ROTATION_DELTA;
-    }
-    if (keysPressed[keys.rght]) {
-        rotationSpeed = values.rotationSpeed + ROTATION_DELTA;
+    if (values.health > 0) {
+        if (keysPressed[keys.left]) {
+            rotationSpeed = values.rotationSpeed - ROTATION_DELTA;
+        }
+        if (keysPressed[keys.rght]) {
+            rotationSpeed = values.rotationSpeed + ROTATION_DELTA;
+        }
     }
     rotationSpeed *= ROTATION_FRICTION;
     if (Math.abs(rotationSpeed) < ROTATION_DELTA_MIN) {
@@ -50,14 +52,16 @@ const setNewGameEquipment = (values) => {
 
 export const checkFrwdBackKeysPressed = ({ newValues, keys }) => {
     let newSpeed = { ...newValues.speed };
-    if (keysPressed[keys.frwd] && !keysPressed[keys.back]) {
-        newSpeed = countNewSpeed(newValues, ACCELERATION);
-    }
-    if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
-        newSpeed = countNewSpeed(newValues, DECELERATION);
-    }
-    if (keysPressed[keys.back] && keysPressed[keys.frwd] && newValues.equipment) {
-        newValues = setNewGameEquipment(newValues);
+    if (newValues.health > 0) {
+        if (keysPressed[keys.frwd] && !keysPressed[keys.back]) {
+            newSpeed = countNewSpeed(newValues, ACCELERATION);
+        }
+        if (keysPressed[keys.back] && !keysPressed[keys.frwd]) {
+            newSpeed = countNewSpeed(newValues, DECELERATION);
+        }
+        if (keysPressed[keys.back] && keysPressed[keys.frwd] && newValues.equipment) {
+            newValues = setNewGameEquipment(newValues);
+        }
     }
 
     [newSpeed, newValues] = verifyWallsBounce(newSpeed, newValues);
