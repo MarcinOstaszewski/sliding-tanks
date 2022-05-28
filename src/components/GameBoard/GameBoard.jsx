@@ -5,6 +5,7 @@ import Players from './Players/Players';
 import Goals from './Goals/Goals';
 import Score from './Score/Score';
 import Workshop from './Workshop/Workshop';
+import Explosions from './Explosions/Explosions';
 import GameEquipment from './GameEquipment/GameEquipment';
 import useInterval from '../../hooks/useInterval';
 import { consts, updatePlayersValues, setKeyListeners, unsetKeyListeners, getColorFromValue } from '../../helpers';
@@ -18,12 +19,13 @@ const keysPressed = {};
 const GameBoard = (props) => {
     let gameWon;
     const [keysListenersReady, setKeysListenersReady] = useState(false);
+    const [explosions, setExplosions] = useState([]);
     const gameSettings = useSelector(state => state.gameSettings);
     const onBoardEquipment = useSelector(state => state.gameEquipment);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        return unsetKeyListeners
+        return unsetKeyListeners;
     }, []);
 
     if (!keysListenersReady) {
@@ -40,6 +42,18 @@ const GameBoard = (props) => {
             return player;
         });
         return [values, equipmentToAdd];
+    }
+
+    const showExplodingMines = minesToRemove => {
+        const explosionsToSet = [];
+        Object.keys(minesToRemove).forEach(mine => {
+            explosionsToSet.push({
+                position: minesToRemove[mine],
+                timestamp: Date.now()
+            })
+            console.log(explosionsToSet);
+        })
+        setExplosions(explosionsToSet);
     }
 
     useInterval(() => {
@@ -64,6 +78,7 @@ const GameBoard = (props) => {
             dispatch(gameEquipmentActions.addNewGameEquipment(equipmentToAdd));
         }
         if (Object.keys(minesToRemove).length > 0) {
+            showExplodingMines(minesToRemove);
             dispatch(gameEquipmentActions.removeMinesFromBoard(Object.keys(minesToRemove)));
         }
 
@@ -95,6 +110,9 @@ const GameBoard = (props) => {
             <Bonus bonusValues={props.bonusValues} />
             <Players playersValues={props.playersValues} />
             <GameEquipment onBoardEquipment={onBoardEquipment} />
+            <Explosions
+                explosions={explosions}
+                setExplosions={setExplosions} />
             <Workshop />
             {gameWon}
         </div>
