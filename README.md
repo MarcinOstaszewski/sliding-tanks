@@ -1,3 +1,7 @@
+# Life demo of the project
+
+Available here: https://marcinostaszewski.github.io/sliding-tanks/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
