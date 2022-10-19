@@ -5,7 +5,7 @@ const Bonus = (props) => {
     let bonusType = bonusIconsList[props.bonusValues.bonusType];
 
     return <div
-        className="bonus"
+        className={`bonus ${props.animation ? 'animation' : ''}`}
         style={{
             left: props.bonusValues.position.x,
             top: props.bonusValues.position.y,
