@@ -33,6 +33,7 @@ const StyledSettings = styled.div`
         }
     }
     .active-players-selector {
+        position: relative;
         ul {
             display: flex;
             flex-direction: column;
@@ -120,6 +121,15 @@ const StyledSettings = styled.div`
             flex-direction: column;
             align-items: center;
             margin-left: 90px;
+
+            &-close {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                font-size: 40px;
+                line-height: .5;
+                cursor: pointer;
+            }
         }
         .player-display {
             display: flex;
@@ -134,16 +144,17 @@ const StyledSettings = styled.div`
             width: 100%;
             height: 12px;
             cursor: pointer;
-            background-image: linear-gradient(to right,
-                 hsl(0, 100%, 35%),
-                 hsl(60, 100%, 35%),
-                 hsl(120, 100%, 35%),
-                 hsl(180, 100%, 35%),
-                 hsl(240, 100%, 35%),
-                 hsl(300, 100%, 35%),
-                 hsl(360, 100%, 35%)
-                 
+            background-image: linear-gradient(
+                to right,
+                hsl(0, 100%, 35%),
+                hsl(60, 100%, 35%),
+                hsl(120, 100%, 35%),
+                hsl(180, 100%, 35%),
+                hsl(240, 100%, 35%),
+                hsl(300, 100%, 35%),
+                hsl(360, 100%, 35%)
             );
+                 
             ::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 border: 6px solid #000;
