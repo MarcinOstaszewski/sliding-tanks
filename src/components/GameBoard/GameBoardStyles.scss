@@ -71,7 +71,7 @@
 .bonus {
     width: 32px;
     height: 32px;
-    border-radius: 25%;
+    border-radius: 15%;
     border: 2px solid #675645;
     position: absolute;
     display: flex;
@@ -79,7 +79,10 @@
     justify-content: center;
     transform: translate(-50%, -50%);
     z-index: -14;
-    animation: wiggle 1.5s alternate linear infinite;
+    opacity: .65;
+    &.animation {
+        animation: wiggle 1.5s alternate linear infinite;
+    }
     svg {
         width: 65%;
         height: 65%;
@@ -97,10 +100,12 @@
     svg {
         width: 80%;
         height: 80%;
-        animation: rotateRight 5s linear infinite;
         path {
             fill: #4d784e;
         }
+    }
+    &.animation svg {
+        animation: rotateRight 25s linear infinite;
     }
 }
 
@@ -147,9 +152,9 @@
             font-size: 24px;
             font-weight: bold;
             color: #e1d798;
-            background-color: #675645;
             border: none;
             z-index: 20;
+            animation: restart 1s linear infinite alternate;
         }
     }
 }
@@ -162,6 +167,10 @@
     height: 0; 
     background-color: darkgray;
     animation: explosion .6s linear ;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 @keyframes rotateRight {
@@ -178,6 +187,11 @@
 @keyframes isRepaired {
     0% { height: 4px; top: -13px; }
     100% { height: 9px; top: -16px; }
+}
+
+@keyframes restart {
+    0% {background-color: #675645;}
+    100% {background-color: #6ea171;}
 }
 
 @keyframes explosion {
