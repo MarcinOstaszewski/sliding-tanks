@@ -99,7 +99,7 @@ const GameBoard = (props) => {
                     <button className="restart" onClick={() => window.location.href = '/'}>RESTART GAME</button>
                 </div>
             </div>
-        )
+        );
     }
 
     return (
@@ -107,13 +107,13 @@ const GameBoard = (props) => {
             <Borders />
             <Score playersValues={props.playersValues} />
             <Goals goalValues={props.goalValues} />
-            <Bonus bonusValues={props.bonusValues} />
+            <Bonus bonusValues={props.bonusValues} animation={consts.FRAME_INTERVAL}/>
             <Players playersValues={props.playersValues} />
             <GameEquipment onBoardEquipment={onBoardEquipment} />
             <Explosions
                 explosions={explosions}
                 setExplosions={setExplosions} />
-            <Workshop />
+            <Workshop animation={consts.FRAME_INTERVAL}/>
             {gameWon}
         </div>
     );
