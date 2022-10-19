@@ -25,6 +25,17 @@ const WelcomeStyled = styled.div`
     }
     p {
         padding: 3px 0;
+        .menu-link {
+            background-color: ${coloursPalette.primary};
+            color: ${coloursPalette.secondaryLight};
+            cursor: pointer;
+            padding: 1px 10px 2px;
+            text-transform: uppercase;
+            :hover {
+                background-color: ${coloursPalette.primaryLight};
+                transition: .2s;
+            }
+        }
     }
     ul {
         font-family: 'Titan One', cursive;

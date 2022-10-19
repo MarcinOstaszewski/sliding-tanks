@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { playersData, goalData, bonusData, gameStateActions } from '../../store'
+import { playersData, goalData, bonusData, gameStateActions } from '../../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { Welcome, Settings, GameOver } from './';
 import GameBoard from '../GameBoard/GameBoard';
 import { StyledUl } from './GameStateView.Styled';
+import { gameStates } from '../../helpers';
 
 const GameStateView = () => {
     const dispatch = useDispatch();
@@ -17,8 +18,12 @@ const GameStateView = () => {
 
     let gameStateComponent = null;
 
+    const changeGameState = (type) => {
+        dispatch(gameStateActions.changeGameState(type));
+    }
+
     switch (gameState) {
-        case 'SETTINGS':
+        case gameStates.SETTINGS:
             gameStateComponent = (
                 <Settings
                     playersValues={playersValues}
@@ -26,7 +31,7 @@ const GameStateView = () => {
                 />
             );
             break;
-        case 'GAME_ON':
+        case gameStates.GAME_ON:
             let activePlayersValues = playersValues.map((values, index) => {
                 values.active = activePlayersList[index];
                 return values;
@@ -43,26 +48,24 @@ const GameStateView = () => {
                 />
             );
             break;
-        case 'GAME_PAUSED':
+        case gameStates.GAME_PAUSED:
             gameStateComponent = (<GameOver />);
             break;
         default:
-            gameStateComponent = (<Welcome />);
+            gameStateComponent = (<Welcome 
+                changeGameState = { changeGameState }
+            />);
             break;
-    }
-
-    const changeGameState = (type) => {
-        dispatch(gameStateActions.changeGameState(type));
     }
 
     return (
         <div>
             {gameStateComponent}
             <StyledUl>
-                <li onClick={() => changeGameState('WELCOME')}>WELCOME</li>
-                <li onClick={() => changeGameState('SETTINGS')}>SETTINGS</li>
-                <li onClick={() => changeGameState('GAME_ON')}>START</li>
-                <li onClick={() => changeGameState('GAME_PAUSED')}>PAUSE</li>
+                <li onClick={() => changeGameState(gameStates.WELCOME)}>WELCOME</li>
+                <li onClick={() => changeGameState(gameStates.SETTINGS)}>SETTINGS</li>
+                <li onClick={() => changeGameState(gameStates.GAME_ON)}>START</li>
+                <li onClick={() => changeGameState(gameStates.GAME_PAUSED)}>PAUSE</li>
             </StyledUl>
         </div>
     );

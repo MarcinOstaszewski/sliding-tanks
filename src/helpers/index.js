@@ -13,12 +13,17 @@ import {
     setStorageValue
 } from './helperFunctions';
 
+import { 
+    gameStates 
+} from './gameStates';
+
 import {
     updatePlayersValues,
 } from './playerHelpers';
 
 export {
     consts,
+    gameStates,
     validateRotationSpeed,
     checkFrwdBackKeysPressed,
     updatePosition,
