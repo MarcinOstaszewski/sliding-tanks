@@ -2,8 +2,9 @@ import { getRandomBetween, getRandomPosition } from '../helpers';
 
 const bonusTypes = {
     0: 'mine',
-    1: 'bullet',
-    2: 'missile'
+    1: 'repair'
+    // 2: 'bullet',
+    // 3: 'missile'
 }
 
 export const resetBonusValues = () => ({

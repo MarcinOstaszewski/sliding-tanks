@@ -35,16 +35,26 @@ const countNewSpeed = ({ angle, speed }, frwd) => {
 }
 
 const setNewGameEquipment = (values) => {
-    const toPlayerCenterVector = {
-        x: -consts.PLAYER_RADIUS,
-        y: -consts.PLAYER_RADIUS
-    };
-    const playerCSSPosition = addVectors(values.position, toPlayerCenterVector);
-    const playerSpeedVector = multiplyVectors(-5, values.speed);
-
-    values.equipmentToAdd = {
-        type: values.equipment,
-        position: addVectors(playerCSSPosition, playerSpeedVector)
+    switch (values.equipment) {
+        case 'mine':
+            const toPlayerCenterVector = {
+                x: -consts.PLAYER_RADIUS,
+                y: -consts.PLAYER_RADIUS
+            };
+            const playerCSSPosition = addVectors(values.position, toPlayerCenterVector);
+            const playerSpeedVectorMultiplied = multiplyVectors(-5, values.speed);
+        
+            values.equipmentToAdd = {
+                type: values.equipment,
+                position: addVectors(playerCSSPosition, playerSpeedVectorMultiplied)
+            }
+            break;
+        case 'repair':
+            values.health += 20;
+            if (values.health > 100) values.health = 100;
+            break;
+        default:
+            break;
     }
     values.equipment = '';
     return values;
@@ -60,10 +70,16 @@ export const checkFrwdBackKeysPressed = ({ newValues, keys }) => {
             newSpeed = countNewSpeed(newValues, DECELERATION);
         }
         if (keysPressed[keys.back] && keysPressed[keys.frwd] && newValues.equipment) {
-            newValues = setNewGameEquipment(newValues);
+            switch(newValues.equipment) {
+                case 'mine':
+                case 'repair':
+                    newValues = setNewGameEquipment(newValues);
+                    break;
+                default:
+            }
         }
     }
-
+ 
     [newSpeed, newValues] = verifyWallsBounce(newSpeed, newValues);
     newValues.speed = {
         x: validateSpeed(newSpeed.x),
