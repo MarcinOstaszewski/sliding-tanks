@@ -19,9 +19,6 @@ const basicStyles = `
     .d-flex {
         display: flex;
     }
-    .hidden {
-        display: none !important;
-    }
     .w-100 {
         width: 100%;
     }
