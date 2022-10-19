@@ -3,7 +3,8 @@ import { getColorFromValue } from '../../../helpers';
 
 const Score = (props) => {
     const showPlayersScore = (pos, id) => (
-        <p className={`${pos} player${+id + 1}`} style={{ color: getColorFromValue(props.playersValues[id]?.values?.backgroundColor) }}>
+        <p className={`${pos} player${+id + 1}${props.playersValues[id]?.active ? '' : ' invisible'}`} 
+            style={{ color: getColorFromValue(props.playersValues[id]?.values?.backgroundColor) }}>
             {props.playersValues[id]?.values?.points}
         </p>
     );
