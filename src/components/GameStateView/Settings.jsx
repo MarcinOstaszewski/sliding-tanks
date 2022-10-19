@@ -52,14 +52,14 @@ export default function Settings(props) {
                     onClick={() => togglePlayerActive(id)}
                 >
                     Player {parseInt(id) + 1}
-                    <div className="player-colour"
-                        style={{ backgroundColor: getColorFromValue(props.playersValues[id].backgroundColor) }}>
+                    <div className={`player-colour${(activePlayers[id] ? '' : ' invisible')}`}
+                        style={{ backgroundColor: getColorFromValue(props.playersValues[id].values.backgroundColor) }}>
                     </div>
                 </div>
                 <div className={"player-keys" + (activeKeysId === id ? " active" : "")}
                     data-id={id}
                     onClick={showPlayerKeys}
-                >Change</div>
+                >change settings</div>
             </li>
         )
     });
@@ -84,13 +84,17 @@ export default function Settings(props) {
         <StyledSettings>
             <h1>Settings</h1>
             <div className="settings-container active-players-selector">
-                <h2>Active Players</h2>
+                <h2>Select Active Players</h2>
                 <div className="d-flex">
                     <ul>
                         {playersList}
                     </ul>
                     {activeKeysId && (
                         <div className={"active-keys-display"} data-id={activeKeysId}>
+                            <div className="active-keys-display-close" 
+                                onClick={showPlayerKeys}
+                                data-id=""
+                            >&times;</div>
                             <div className="player-display w-100">
                                 <strong>Player {+activeKeysId + 1}</strong>
                             </div>
