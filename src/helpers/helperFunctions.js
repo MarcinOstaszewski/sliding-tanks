@@ -34,29 +34,33 @@ const countNewSpeed = ({ angle, speed }, frwd) => {
     };
 }
 
-const setNewGameEquipment = (values) => {
-    switch (values.equipment) {
-        case 'mine':
-            const toPlayerCenterVector = {
-                x: -consts.PLAYER_RADIUS,
-                y: -consts.PLAYER_RADIUS
-            };
-            const playerCSSPosition = addVectors(values.position, toPlayerCenterVector);
-            const playerSpeedVectorMultiplied = multiplyVectors(-5, values.speed);
-        
-            values.equipmentToAdd = {
-                type: values.equipment,
-                position: addVectors(playerCSSPosition, playerSpeedVectorMultiplied)
-            }
-            break;
-        case 'repair':
-            values.health += 20;
-            if (values.health > 100) values.health = 100;
-            break;
-        default:
-            break;
+const playerPutsNewMine = (values) => {
+    const toPlayerCenterVector = {
+        x: -consts.PLAYER_RADIUS,
+        y: -consts.PLAYER_RADIUS
+    };
+    const playerCSSPosition = addVectors(values.position, toPlayerCenterVector);
+    const playerSpeedVectorMultiplied = multiplyVectors(-5, values.speed);
+
+    values.equipmentToAdd = {
+        type: values.equipment,
+        position: addVectors(playerCSSPosition, playerSpeedVectorMultiplied)
     }
-    values.equipment = '';
+    return values;
+}
+
+const playerUsesRepairKit = (values) => {
+    values.health = values.health < 80 ? values.health + 20 : 100;
+    return values;
+}
+
+const playerShootsBullet = (values) => {
+    let { angle, position, speed } = values;
+    speed = countNewSpeed({ angle, speed }, -20);
+    values.bulletShot = {
+        type: values.equipment,
+        angle, position, speed
+    };
     return values;
 }
 
@@ -70,13 +74,20 @@ export const checkFrwdBackKeysPressed = ({ newValues, keys }) => {
             newSpeed = countNewSpeed(newValues, DECELERATION);
         }
         if (keysPressed[keys.back] && keysPressed[keys.frwd] && newValues.equipment) {
-            switch(newValues.equipment) {
+            switch (newValues.equipment) {
                 case 'mine':
+                    newValues = playerPutsNewMine(newValues);
+                    break;
                 case 'repair':
-                    newValues = setNewGameEquipment(newValues);
+                    newValues = playerUsesRepairKit(newValues)
+                    break;
+                case 'bullet':
+                    newValues = playerShootsBullet(newValues);
                     break;
                 default:
+                    break;
             }
+            newValues.equipment = '';
         }
     }
  
