@@ -82,7 +82,6 @@ const GameBoard = (props) => {
             showExplodingMines(minesToRemove);
             dispatch(gameEquipmentActions.removeMinesFromBoard(Object.keys(minesToRemove)));
         }
-        // use addBulletToBoardGame(newValues, setBulletOnBoardGame) set state to update the bullets array !!!!!!
         const bulletsToAddToGameBoard = [];
         updatedPlayersValues.forEach(player => {
             if (player.values.bulletShot?.type === 'bullet') {
