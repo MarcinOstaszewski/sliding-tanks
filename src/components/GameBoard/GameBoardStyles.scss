@@ -89,6 +89,16 @@
     }
 }
 
+.bullet {
+    height: 25px;
+    width: 25px;
+    svg {
+        height: 15px;
+        width: 15px;
+        padding: 5px
+    }
+}
+
 .workshop {
     border: 2px solid #4d784e;
     border-radius: 35%;
@@ -110,9 +120,13 @@
 }
 
 .on-board-equipment {
-    div {
+    > div {
         position: absolute;
         transform: translate(-50%, -50%);
+        .bullet {
+            height: 22px;
+            width: 22px;
+        }
     }
 }
 
