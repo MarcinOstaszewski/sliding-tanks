@@ -54,7 +54,6 @@ const GameBoard = (props) => {
                 position: minesToRemove[mine],
                 timestamp: Date.now()
             })
-            console.log(explosionsToSet);
         })
         setExplosions(explosionsToSet);
     }
@@ -62,6 +61,7 @@ const GameBoard = (props) => {
     useInterval(() => {
         let equipmentToAdd = [];
         let minesToRemove = {};
+        let bulletsToRemove = [];
 
         props.setBonusValues(updateBonusValues(props.bonusValues));
         if (bulletsOnGameBoard.length) {
@@ -72,7 +72,7 @@ const GameBoard = (props) => {
             );
         }
         let updatedPlayersValues;
-        [updatedPlayersValues, minesToRemove] = updatePlayersValues({
+        [updatedPlayersValues, minesToRemove, bulletsToRemove] = updatePlayersValues({
             playersValues: props.playersValues,
             goalValues: props.goalValues,
             setGoalValues: props.setGoalValues,
@@ -81,7 +81,9 @@ const GameBoard = (props) => {
             activePlayersPairs: props.activePlayersPairs,
             gameSettings,
             onBoardEquipment,
-            minesToRemove
+            minesToRemove,
+            bulletsOnGameBoard,
+            bulletsToRemove
         });
         [updatedPlayersValues, equipmentToAdd] = checkEquipmentToAdd(updatedPlayersValues, equipmentToAdd);
         if (equipmentToAdd.length) {
@@ -98,12 +100,15 @@ const GameBoard = (props) => {
                 player.values.bulletShot = {};
             }
         });
-        if (bulletsToAddToGameBoard.length) {
-            setBulletsOnGameBoard([
-                ...bulletsOnGameBoard,
-                ...bulletsToAddToGameBoard
-            ])
-        }
+        let newBulletsData = [
+            ...bulletsOnGameBoard,
+            ...bulletsToAddToGameBoard
+        ];
+        bulletsToRemove.forEach(bullet => {
+            newBulletsData = newBulletsData.filter(newBullet => newBullet.angle !== bullet.angle);
+        });
+
+        setBulletsOnGameBoard(newBulletsData)
 
         props.setPlayersValues(updatedPlayersValues);
     }, consts.FRAME_INTERVAL);

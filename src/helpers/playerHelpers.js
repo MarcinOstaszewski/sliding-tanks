@@ -106,24 +106,24 @@ const checkIfBonusCaught = ({ newValues, bonusValues, setBonusValues }) => {
     return newValues.equipment;
 }
 
-const checkCollisionWithMines = (newValues, onBoardEquipment, minesToRemove) => {
-    let health = newValues.health;
-    const mines = onBoardEquipment.mines;
-    if (mines.length > 0) {
-        const collisionsCount = [];
-        mines.forEach((mine, index) => {
-            const mineDistance = getDistance(newValues.position, mine);
-            if (mineDistance < consts.PLAYER_RADIUS * 2) {
-                collisionsCount.push({ [index]: mine });
-                minesToRemove[index] = mine;
+const checkCollisions = (values, objects, toRemove) => {
+    let health = values.health;
+    objects.forEach((obj, index) => {
+        const objectPosition = obj.id ? obj.position : obj;
+        const distance = getDistance(values.position, objectPosition);
+        if (distance < consts.PLAYER_RADIUS * 2) {
+            if (obj.id) {
+                if (obj.id !== values.id) {
+                    health -= consts.BULLET_HIT_DAMAGE;
+                    toRemove.push(obj);                 
+                }
+            } else {
+                health -= consts.MINE_COLLISION_DAMAGE;
+                toRemove[index] = obj;
             }
-        });
-        if (collisionsCount.length > 0) {
-            health -= consts.MINE_COLLISION_DAMAGE * collisionsCount.length;
         }
-    }
-
-    return [health, minesToRemove];
+    })
+    return [health, toRemove];
 }
 
 const updatePlayersValues = ({
@@ -135,7 +135,9 @@ const updatePlayersValues = ({
     activePlayersPairs,
     gameSettings,
     onBoardEquipment,
-    minesToRemove
+    minesToRemove,
+    bulletsOnGameBoard,
+    bulletsToRemove
 }) => {
     const updatedValues = [];
 
@@ -151,7 +153,8 @@ const updatePlayersValues = ({
             [newValues.health, newValues.isRepaired] = updatePlayersHealth(newValues);
             newValues.points = checkIfGoalCaught({ newValues, goalValues, setGoalValues, gameSettings, id });
             newValues.equipment = checkIfBonusCaught({ newValues, bonusValues, setBonusValues });
-            [newValues.health, minesToRemove] = checkCollisionWithMines(newValues, onBoardEquipment, minesToRemove);
+            onBoardEquipment.mines.length && ([newValues.health, minesToRemove] = checkCollisions(newValues, onBoardEquipment.mines, minesToRemove));
+            bulletsOnGameBoard.length && ([newValues.health, bulletsToRemove] = checkCollisions(newValues, bulletsOnGameBoard, bulletsToRemove));
 
             updatedValues[index] = { id, active, values: { ...newValues }, keys };
         };
@@ -202,7 +205,7 @@ const updatePlayersValues = ({
         }
     });
 
-    return [updatedValues, minesToRemove];
+    return [updatedValues, minesToRemove, bulletsToRemove];
 }
 
 export { updatePlayersValues };
