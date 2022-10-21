@@ -8,6 +8,7 @@ const yTwoThirds = consts.WINDOW_HEIGHT / 3 * 2;
 export const playersData = [{
     id: "player1",
     values: {
+        id: "player1",
         position: {
             x: xThird,
             y: yThird,
@@ -34,6 +35,7 @@ export const playersData = [{
 {
     id: "player2",
     values: {
+        id: "player2",
         position: {
             x: xTwoThirds,
             y: yThird,
@@ -60,6 +62,7 @@ export const playersData = [{
 {
     id: "player3",
     values: {
+        id: "player3",
         position: {
             x: xTwoThirds,
             y: yTwoThirds,
@@ -86,6 +89,7 @@ export const playersData = [{
 {
     id: "player4",
     values: {
+        id: "player4",
         position: {
             x: xThird,
             y: yTwoThirds,
