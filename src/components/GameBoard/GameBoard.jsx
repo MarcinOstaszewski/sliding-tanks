@@ -13,6 +13,8 @@ import Borders from './Borders/Borders';
 import Bonus from './Bonus/Bonus';
 import { updateBonusValues } from '../../helpers/bonusHelpers';
 import { gameEquipmentActions } from '../../store';
+import { updateBulletPosition } from '../../helpers/helperFunctions';
+import { addVectors } from '../../helpers/vectorHelpers';
 
 const keysPressed = {};
 
@@ -62,6 +64,13 @@ const GameBoard = (props) => {
         let minesToRemove = {};
 
         props.setBonusValues(updateBonusValues(props.bonusValues));
+        if (bulletsOnGameBoard.length) {
+            setBulletsOnGameBoard(
+                bulletsOnGameBoard
+                    .map(bullet => updateBulletPosition(bullet, consts, addVectors))
+                    .filter(bullet => !bullet.out)
+            );
+        }
         let updatedPlayersValues;
         [updatedPlayersValues, minesToRemove] = updatePlayersValues({
             playersValues: props.playersValues,

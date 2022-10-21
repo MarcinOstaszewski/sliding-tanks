@@ -56,8 +56,9 @@ const playerUsesRepairKit = (values) => {
 
 const playerShootsBullet = (values) => {
     let { angle, position, speed } = values;
-    speed = countNewSpeed({ angle, speed }, -20);
+    speed = countNewSpeed({ angle, speed }, -30);
     values.bulletShot = {
+        id: values.id,
         type: values.equipment,
         angle, position, speed
     };
@@ -198,6 +199,18 @@ const setStorageValue = (name, value) => {
     }
 }
 
+const updateBulletPosition = (bullet, consts, addVectors) => {
+    bullet.position = addVectors(bullet.position, bullet.speed);
+    if (bullet.position.x > consts.WINDOW_WIDTH
+        || bullet.position.x < 0
+        || bullet.position.y > consts.WINDOW_HEIGHT
+        || bullet.position.y < 0
+    ) {
+        bullet.out = true;
+    }
+    return bullet;
+}
+
 export {
     consts,
     validateRotationSpeed,
@@ -208,5 +221,6 @@ export {
     getRandomBetween,
     getRandomPosition,
     getRandomSpeed,
-    setStorageValue
+    setStorageValue,
+    updateBulletPosition
 }
